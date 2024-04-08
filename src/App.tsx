@@ -1,10 +1,19 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
+
 import "./app.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loading from "./components/loading";
 import Header from "./components/header";
 import Shipping from "./pages/shipping";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { userExists, userNotExists } from "./redux/reducer/userReducer";
+import { getUser } from "./redux/api/userApi";
+import { userReducerInitialState } from "./types/reducer_types";
+import Loader from "./components/admin/Loader";
+import ProtectedRoute from "./components/protected_route";
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
 const Login = lazy(() => import("./pages/login"));
@@ -32,27 +41,67 @@ const TransactionManagement = lazy(
 );
 
 const App = () => {
-  return (
+  const { user, loading } = useSelector(
+    (state: { userReducer: userReducerInitialState }) => state.userReducer
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const response = await getUser(user.uid);
+        console.log(response, "this is reponse of login");
+        if (response && "data" in response) {
+          const user = response.data;
+          dispatch(userExists(user));
+        } else {
+          dispatch(userNotExists());
+          toast.error("Something went wrong");
+        }
+      } else {
+        dispatch(userNotExists());
+      }
+    });
+  }, []);
+  return loading ? (
+    <Loader />
+  ) : (
     <Router>
       {/* Header */}
-      <Header />
-      <Suspense fallback={<Loading />}>
+      <Header user={user} />
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<Search />} path="/search" />
           <Route element={<Cart />} path="/cart" />
           {/* Not logged in route */}
-          <Route element={<Login />} path="/login" />
+          <Route
+            element={
+              <ProtectedRoute isAuthenticated={user ? false : true}>
+                <Login />
+              </ProtectedRoute>
+            }
+            path="/login"
+          />
           {/* login user routes  */}
-          <Route element={<Shipping />} path="/shipping" />
-          <Route element={<Orders />} path="/orders" />
-          <Route element={<OrderDetail />} path="/order/:id" />
+
+          <Route
+            element={<ProtectedRoute isAuthenticated={user ? true : false} />}
+          >
+            <Route element={<Shipping />} path="/shipping" />
+            <Route element={<Orders />} path="/orders" />
+            <Route element={<OrderDetail />} path="/order/:id" />
+          </Route>
 
           {/* admin routes */}
           <Route
-          // element={
-          //   // <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={true} />
-          // }
+            element={
+              <ProtectedRoute
+                isAuthenticated={user ? true : false}
+                adminRoute={true}
+                isAdmin={user?.role === "admin" ? true : false}
+              />
+            }
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
