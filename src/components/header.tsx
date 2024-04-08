@@ -7,7 +7,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const user = { _id: 23232, role: "admin" };
+const user = { _id: "", role: "" };
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,7 +44,7 @@ const Header = () => {
           </dialog>
         </>
       ) : (
-        <Link to={"/signin"}>
+        <Link to={"/login"}>
           <FaSignInAlt />
         </Link>
       )}
