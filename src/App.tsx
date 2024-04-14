@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./app.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loading from "./components/loading";
@@ -49,6 +49,7 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log("api hitt in app");
         const response = await getUser(user.uid);
         console.log(response, "this is reponse of login");
         if (response && "data" in response) {

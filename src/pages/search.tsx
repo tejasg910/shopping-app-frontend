@@ -1,15 +1,37 @@
-import { setsEqual } from "chart.js/helpers";
-import React, { ChangeEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../components/productcard";
+import {
+  useGetAllCategoriesQuery,
+  useSearchProductsQuery,
+} from "../redux/api/commonApi";
+import { toast } from "react-hot-toast";
+
+import { server } from "../redux/store";
+import { SkeletonLoading } from "../components/loading";
 
 const Search = () => {
   const [search, setSearch] = useState<string>("");
+  const {
+    data: categoriesResponse,
+    isLoading: categoriesLoading,
+    isError: categoriesError,
+  } = useGetAllCategoriesQuery("");
+  if (categoriesError)
+    toast.error("Something went wrong while fetching categories");
 
   const [sort, setSort] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState(100000);
   const [minPrice, setMinPrice] = useState<number>(1);
   const [category, setCategory] = useState<string>("all");
   const [page, setPage] = useState<number>(1);
+  const { data, isError, isLoading } = useSearchProductsQuery({
+    search,
+    page,
+    price: maxPrice,
+    category,
+    sort,
+  });
+  if (isError) toast.error("Something went wrong while search");
 
   const addToCartHandler = () => {};
   return (
@@ -36,7 +58,7 @@ const Search = () => {
             name="maxprice"
             id=""
             min={10}
-            max={1000000}
+            max={10000}
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
@@ -47,11 +69,16 @@ const Search = () => {
             name="category"
             id=""
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              setPage(1);
+            }}
           >
             <option value="all">All</option>
-            <option value="camera">camera</option>
-            <option value="laptop">laptop</option>
+            {!categoriesLoading &&
+              categoriesResponse?.data.map((category) => {
+                return <option value={category}>{category}</option>;
+              })}
           </select>
         </div>
       </aside>
@@ -63,15 +90,21 @@ const Search = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <div className="search-product-lists">
-          <ProductCard
-            productId="2sfsdfsd"
-            price={20}
-            stock={10}
-            image="https://rukminim2.flixcart.com/image/416/416/xif0q/computer/y/l/p/-original-imagqmqjv5cyvbup.jpeg?q=70&crop=false"
-            handler={addToCartHandler}
-            name="ACER"
-          />
+        <div className="search-product-list">
+          {isLoading ? (
+            <SkeletonLoading />
+          ) : (
+            data?.data.map((product) => (
+              <ProductCard
+                productId={product._id}
+                price={product.price}
+                stock={product.stock}
+                image={server + "/" + product.image}
+                handler={addToCartHandler}
+                name={product.name}
+              />
+            ))
+          )}
         </div>
         <article>
           <button
@@ -80,9 +113,11 @@ const Search = () => {
           >
             Previous
           </button>
-          <span>{page} of 4</span>
+          <span>
+            {page} of {data?.totalPages}
+          </span>
           <button
-            disabled={page >= 4}
+            disabled={page >= data?.totalPages!}
             onClick={() => setPage((prev) => prev + 1)}
           >
             Next

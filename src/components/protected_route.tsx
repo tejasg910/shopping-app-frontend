@@ -1,4 +1,3 @@
-import { getRedirectResult } from "firebase/auth";
 import { ReactElement } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 

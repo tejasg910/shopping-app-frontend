@@ -1,5 +1,6 @@
 .product-search-page {
   padding: 2rem;
+
   @include flex(row, flex-start, stretch, 2rem);
   min-height: calc(100vh - 6.5rem);
   > aside {
@@ -45,9 +46,20 @@
     }
 
     .search-product-list {
-      @include flex(row, flex-start, flex-start, wrap);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16.5rem, 1fr));
+      overflow-x: hidden;
+      // @include flex(row, flex-start, flex-start, wrap);
       height: calc(100% - 10rem);
       overflow-y: auto;
+      @media screen and (max-width: 768px) {
+        .search-product-list {
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(150px, 1fr)
+          ); /* Adjust column width for smaller screens */
+        }
+      }
     }
 
     article {

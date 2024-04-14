@@ -1,9 +1,15 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
+import { useGetAllProductsQuery } from "../../redux/api/adminApi";
+import { server } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { userReducerInitialState } from "../../types/reducer_types";
+import Loading, { SkeletonLoading } from "../../components/loading";
+import { toast } from "react-hot-toast";
 
 interface DataType {
   photo: ReactElement;
@@ -60,7 +66,25 @@ const arr: Array<DataType> = [
 ];
 
 const Products = () => {
-  const [rows, setRows] = useState<DataType[]>(arr);
+  const { user } = useSelector(
+    (state: { userReducer: userReducerInitialState }) => state.userReducer
+  );
+
+  const { data, isError, isLoading } = useGetAllProductsQuery(user?._id!);
+  if (isError) toast.error("Something went wrong while fetching products");
+  const [rows, setRows] = useState<DataType[]>([]);
+  useEffect(() => {
+    if (data)
+      setRows(
+        data.data.map((i) => ({
+          name: i.name,
+          photo: <img src={server + "/" + i.image} />,
+          price: i.price,
+          stock: i.stock,
+          action: <Link to={`/admin/product/${i._id}`}>Manage</Link>,
+        }))
+      );
+  }, [data]);
 
   const Table = TableHOC<DataType>(
     columns,
@@ -73,7 +97,8 @@ const Products = () => {
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>{Table}</main>
+
+      <main>{isLoading ? <SkeletonLoading /> : Table}</main>
       <Link to="/admin/product/new" className="create-product-btn">
         <FaPlus />
       </Link>

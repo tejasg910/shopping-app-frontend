@@ -15,14 +15,15 @@ function TableHOC<T extends Object>(
   data: T[],
   containerClassname: string,
   heading: string,
-  showPagination: boolean = false
+  showPagination: boolean = false,
+
 ) {
   return function HOC() {
     const options: TableOptions<T> = {
       columns,
       data,
       initialState: {
-        pageSize: 6,
+        pageSize: 10,
       },
     };
 
