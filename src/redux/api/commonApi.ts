@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allCategoriesResponse,
+  getPrdouctByIdResponse,
   latestProductsResponse,
   searchProductQuery,
   searchProductsResponse,
@@ -15,10 +16,12 @@ export const commonApi = createApi({
   endpoints: (builder) => ({
     getLatestProducts: builder.query<latestProductsResponse, string>({
       query: () => "/product/latest",
-
     }),
     getAllCategories: builder.query<allCategoriesResponse, string>({
       query: () => "/product/categories",
+    }),
+    getProductById: builder.query<getPrdouctByIdResponse, string>({
+      query: (id) => `/product/${id}`,
     }),
     searchProducts: builder.query<searchProductsResponse, searchProductQuery>({
       query: ({ search, page, category, price, sort }) => {
@@ -38,4 +41,5 @@ export const {
   useGetLatestProductsQuery,
   useGetAllCategoriesQuery,
   useSearchProductsQuery,
+  useGetProductByIdQuery,
 } = commonApi;

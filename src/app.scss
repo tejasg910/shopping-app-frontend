@@ -1,8 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Anta&family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --dark-color-lighten: #f2f5ff;
+  --red-card: #a62121;
+  --blue-card: #4bb7e6;
+  --btn: #141414;
+  --btn-hover: #3a3a3a;
+  --text: #fbf7f7;
+  --primary_button_gradient: linear-gradient(
+    90deg,
+    rgba(0, 110, 22, 1) 6%,
+    rgba(162, 105, 19, 1) 51%,
+    rgba(193, 22, 109, 1) 93%
+  );
+
+  --simple_cards: #676a6b;
 }
 
 * {
@@ -35,8 +50,27 @@ a {
 $color1: white;
 $color2: rgb(46, 46, 46);
 $color3: rgb(0, 104, 136);
-@import "styles/admin-styles/mixin";
+$theme: rgb(19, 7, 80);
+$header_color: #420273;
+$gradient_color: linear-gradient(
+  90deg,
+  rgba(19, 7, 80, 1) 0%,
+  rgba(205, 81, 32, 1) 54%,
+  rgba(18, 103, 6, 1) 100%
+);
+$primary_button_gradient: linear-gradient(
+  90deg,
+  rgba(0, 110, 22, 1) 6%,
+  rgba(162, 105, 19, 1) 51%,
+  rgba(193, 22, 109, 1) 93%
+);
 
+@import "styles/admin-styles/mixin";
+@import "styles/variable.scss";
+@import "styles/utility.scss";
+
+@import "styles/common.scss";
+@import "styles/loader.scss";
 @import "styles/admin-styles/dashboard";
 @import "styles/admin-styles/products";
 @import "styles/admin-styles/chart";
@@ -65,10 +99,12 @@ $color3: rgb(0, 104, 136);
 }
 
 .header {
+  background-color: $header_color;
+  color: $color1;
   @include flex(row, flex-end, stretch, 1.2rem);
   padding: 1rem;
   a {
-    color: $color2;
+    color: $color1;
     letter-spacing: 2px;
     font-size: 1.2rem;
     &:hover {
@@ -278,4 +314,10 @@ $color3: rgb(0, 104, 136);
     transform: translate(-50%, -20%);
   }
 }
+.gradient_bar {
+  background: $theme;
+  background: $gradient_color;
+  height: 5px;
 
+  width: 100%;
+}

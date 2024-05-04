@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./app.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Loading from "./components/loading";
+import Loading, { HomePageLoader } from "./components/loading";
 import Header from "./components/header";
 import Shipping from "./pages/shipping";
 import { Toaster, toast } from "react-hot-toast";
@@ -14,6 +14,8 @@ import { getUser } from "./redux/api/userApi";
 import { userReducerInitialState } from "./types/reducer_types";
 import Loader from "./components/admin/Loader";
 import ProtectedRoute from "./components/protected_route";
+import ProductCard from "./components/productcard";
+import ProductInfo from "./components/products/ProductInfo";
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
 const Login = lazy(() => import("./pages/login"));
@@ -65,15 +67,17 @@ const App = () => {
     });
   }, []);
   return loading ? (
-    <Loader />
+    <HomePageLoader />
   ) : (
     <Router>
       {/* Header */}
+
       <Header user={user} />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<Search />} path="/search" />
+          <Route element={<ProductInfo />} path="/product/:id" />
           <Route element={<Cart />} path="/cart" />
           {/* Not logged in route */}
           <Route

@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   allProductsResponse,
+  deleteProductRequest,
   messageResponse,
   newProductRequest,
+  updateProductRequest,
 } from "../../types/api_types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetLatestProductsQuery } from "./commonApi";
@@ -36,7 +38,35 @@ export const adminApi = createApi({
         await dispatch(refetchLatestProducts());
       },
     }),
+    udpateProduct: builder.mutation<messageResponse, updateProductRequest>({
+      query: ({ productId, formData, id }) => ({
+        url: `product/update/${productId}?id=${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["product"],
+
+      async onQueryStarted(_, { dispatch }) {
+        await dispatch(refetchLatestProducts());
+      },
+    }),
+    deleteProduct: builder.mutation<messageResponse, deleteProductRequest>({
+      query: ({ productId, id }) => ({
+        url: `product/delete/${productId}?id=${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["product"],
+
+      // async onQueryStarted(_, { dispatch }) {
+      //   await dispatch(refetchLatestProducts());
+      // },
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useNewProductMutation } = adminApi;
+export const {
+  useGetAllProductsQuery,
+  useNewProductMutation,
+  useUdpateProductMutation,
+  useDeleteProductMutation,
+} = adminApi;

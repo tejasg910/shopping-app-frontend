@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { userReducerInitialState } from "../../types/reducer_types";
 import Loading, { SkeletonLoading } from "../../components/loading";
 import { toast } from "react-hot-toast";
+import Nodata from "../../components/common/NOdata";
 
 interface DataType {
   photo: ReactElement;
@@ -98,7 +99,9 @@ const Products = () => {
     <div className="admin-container">
       <AdminSidebar />
 
-      <main>{isLoading ? <SkeletonLoading /> : Table}</main>
+      <main>
+        {isLoading ? <SkeletonLoading /> : rows.length > 0 ? Table : <Nodata />}
+      </main>
       <Link to="/admin/product/new" className="create-product-btn">
         <FaPlus />
       </Link>

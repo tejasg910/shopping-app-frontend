@@ -1,8 +1,7 @@
 .home {
-  padding: 2rem 5%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4rem);
+  // height: calc(100vh - 4rem);
   width: 100%;
 
   > .cover {
@@ -21,7 +20,7 @@
     font-size: 1rem;
   }
 
-  main {
+  .latestProdcuts {
     width: 100%;
     flex: 1;
     display: flex;
@@ -103,5 +102,244 @@
   }
   100% {
     opacity: 0.5;
+  }
+}
+
+.feature_product_card_container {
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+  // --dark-color-lighten: #f2f5ff;
+  // --red-card: #a62121;
+  // --blue-card: #4bb7e6;
+  // --btn: #141414;
+  // --btn-hover: #3a3a3a;
+  // --text: #fbf7f7;
+
+  ::before,
+  ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(
+    225deg,
+    hsl(270deg 92% 25%) 72%,
+    hsl(261deg 40% 37%) 86%,
+    hsl(260deg 28% 43%) 92%,
+    hsl(259deg 21% 48%) 95%,
+    hsl(258deg 19% 52%) 98%,
+    hsl(258deg 18% 57%) 99%,
+    hsl(257deg 17% 60%) 100%,
+    hsl(257deg 16% 64%) 101%,
+    hsl(257deg 16% 67%) 101%,
+    hsl(257deg 16% 70%) 101%,
+    hsl(257deg 15% 73%) 102%,
+    hsl(256deg 15% 76%) 102%,
+    hsl(256deg 15% 79%) 102%,
+    hsl(256deg 14% 81%) 102%,
+    hsl(256deg 14% 84%) 101%,
+    hsl(256deg 14% 86%) 101%,
+    hsl(256deg 14% 89%) 101%,
+    hsl(256deg 14% 91%) 101%,
+    hsl(256deg 13% 93%) 101%,
+    hsl(256deg 13% 96%) 100%,
+    hsl(256deg 13% 98%) 100%,
+    hsl(0deg 0% 100%) 100%
+  );
+  font-family: "Montserrat", sans-serif;
+
+  .btn button {
+    font-family: "Montserrat", sans-serif;
+    display: inline-block;
+    border: none;
+    outline: none;
+    border-radius: 0.2rem;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: 100%;
+    user-select: none;
+  }
+
+  /*===== CARD =====*/
+  .container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 101vh;
+
+    .main_info {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      .heading {
+        font-size: 2rem;
+        text-align: start;
+        font-weight: 800;
+        color: var(--text);
+      }
+    }
+
+    .card {
+      position: relative;
+      padding: 1rem;
+      width: 350px;
+      height: 450px;
+      box-shadow: -1px 15px 30px -12px rgb(32, 32, 32);
+      border-radius: 0.9rem;
+      background-color: var(--red-card);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .card-blue {
+      background: var(--blue-card);
+    }
+
+    .product-image {
+      height: 230px;
+      width: 100%;
+      transform: translate(0, -1.5rem);
+      transition: transform 500ms ease-in-out;
+      filter: drop-shadow(5px 10px 15px rgba(8, 9, 13, 0.4));
+    }
+    .product-info {
+      text-align: center;
+    }
+
+    .card:hover .product-image {
+      transform: translate(-1.5rem, -7rem) rotate(-20deg);
+    }
+
+    .product-info h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    .product-info p {
+      margin: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .price {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .btn {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-top: 0.8rem;
+    }
+    .buy-btn {
+      background-color: var(--btn);
+      padding: 0.6rem 3.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 300ms ease;
+    }
+    .buy-btn:hover {
+      background-color: var(--btn-hover);
+    }
+    .fav {
+      box-sizing: border-box;
+      background: #fff;
+      padding: 0.5rem 0.5rem;
+      border: 1px solid#000;
+      display: grid;
+      place-items: center;
+    }
+
+    .svg {
+      height: 25px;
+      width: 25px;
+      fill: #fff;
+      transition: all 500ms ease;
+    }
+
+    .fav:hover .svg {
+      fill: #000;
+    }
+
+    @media screen and (max-width: 800px) {
+      body {
+        height: auto;
+      }
+      .container {
+        padding: 2rem 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 3rem;
+      }
+    }
+
+    .secondary_info {
+      width: 35rem;
+      h2 {
+        font-size: 3rem;
+        text-align: start;
+        font-weight: 800;
+        color: var(--text);
+      }
+      .secondary_info_card {
+        padding: 1rem;
+        background-color: var(--simple_cards);
+        font-size: 1.2rem;
+        color: var(--text);
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}
+.offer_card {
+  background: rgb(27, 79, 215);
+  background: linear-gradient(
+    90deg,
+    rgba(27, 79, 215, 1) 0%,
+    rgba(22, 75, 193, 1) 60%,
+    rgba(13, 27, 125, 1) 100%
+  );
+  height: 2.5rem;
+  font-size: 1.5rem;
+  color: $color1;
+
+  text-align: center;
+  span {
+    animation: hideShow 1s linear 2s infinite alternate;
+  }
+}
+@keyframes hideShow {
+  0% {
+    opacity: 0.8;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
   }
 }

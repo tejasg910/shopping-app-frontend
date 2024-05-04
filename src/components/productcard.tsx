@@ -1,12 +1,15 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { CartItem } from "../types/types";
 type ProductsProps = {
   image: string;
   name: string;
   price: number;
   productId: string;
   stock: number;
-  handler: () => void;
+
+  handler: (cartItem: CartItem) => void;
 };
 
 const server = "";
@@ -24,7 +27,11 @@ const ProductCard = ({
       <p>{name}</p>
       <span>${price}</span>
       <div>
-        <button onClick={() => handler()}>
+        <button
+          onClick={() =>
+            handler({ image, name, price, productId, quantity: 1, stock })
+          }
+        >
           <FaPlus />
         </button>
       </div>

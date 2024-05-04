@@ -8,15 +8,36 @@ import { toast } from "react-hot-toast";
 import { SiDigikeyelectronics } from "react-icons/si";
 import { SkeletonLoading } from "../components/loading";
 import { Carousel } from "react-responsive-carousel";
+import FeatureProdcutCard from "../components/products/FeatureProdcutCard";
+import OfferCard from "../components/products/OfferCard";
+import { CartItem } from "../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/reducer/cartReducer";
+import { cartReducerInitialState } from "../types/reducer_types";
 
 const Home = () => {
+  const { cartItems } = useSelector(
+    (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  );
+
   const { data, isError, isLoading } = useGetLatestProductsQuery("");
   if (isError) toast.error("Error while fetching products");
   console.log(server + "/" + data?.data[0].image);
-  const addToCartHandler = () => {};
+  const dispatch = useDispatch();
+  const addToCartHandler = (cartItem: CartItem) => {
+    dispatch(addToCart(cartItem));
+    const item = cartItems.find(
+      (item) => item.productId === cartItem.productId
+    );
+    if (item?.stock! > item?.quantity!) {
+      toast.success("Item added to cart");
+    } else {
+      toast.error("Out of stock");
+    }
+  };
   return (
     <div className="home">
-      <section className="cover"></section>
+      <FeatureProdcutCard />
 
       <h1>
         Latest Products{" "}
@@ -25,7 +46,7 @@ const Home = () => {
         </Link>
       </h1>
 
-      <main>
+      <main className="latestProdcuts">
         {isLoading ? (
           <SkeletonLoading />
         ) : (

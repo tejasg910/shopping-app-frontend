@@ -2,23 +2,31 @@ import React, { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import CartItem from "../components/cart/CartItem";
 import { Link } from "react-router-dom";
-const cartItems = [
-  {
-    productId: "fsdfsfd",
-    image:
-      "https://rukminim2.flixcart.com/image/416/416/xif0q/computer/y/l/p/-original-imagqmqjv5cyvbup.jpeg?q=70&crop=false",
-    name: "Acer",
-    price: 20,
-    quantity: 4,
-    stock: 10,
-  },
-];
-const subTotal = 4000;
-const tax = Math.round(subTotal * 0.18);
-const shippingCharges = 200;
-const total = subTotal + tax + shippingCharges;
-const dicount = 400;
+import { useDispatch, useSelector } from "react-redux";
+import { cartReducerInitialState } from "../types/reducer_types";
+import { CartItem as CartItemType } from "../types/types";
+import {
+  addToCart,
+  calcaulatePricing,
+  decreamentCart,
+  removeCartItem,
+} from "../redux/reducer/cartReducer";
+
 const Cart = () => {
+  const {
+    cartItems,
+    discount,
+    loading,
+    shippingCharges,
+    shippingInfo,
+    subTotal,
+    tax,
+    total,
+  } = useSelector(
+    (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  );
+
+  const dispatch = useDispatch();
   const [coupneCode, setCoupneCode] = useState<string>("");
   const [isValidcoupenCode, setIsValidCoupneCode] = useState<boolean>(false);
   useEffect(() => {
@@ -35,11 +43,35 @@ const Cart = () => {
     };
   }, [coupneCode]);
 
+  const increamentHandler = (cartItem: CartItemType) => {
+    if (cartItem.quantity >= cartItem.stock) return;
+    dispatch(addToCart(cartItem));
+  };
+  const decreamentHandler = (cartItem: CartItemType) => {
+    if (cartItem.quantity <= 1) return;
+
+    dispatch(decreamentCart(cartItem));
+  };
+  const removeCartHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
+
+  useEffect(() => {
+    dispatch(calcaulatePricing());
+  }, [cartItems]);
   return (
     <div className="cart">
       <main>
         {cartItems.length > 0 ? (
-          cartItems.map((cart, index) => <CartItem key={index} cart={cart} />)
+          cartItems.map((cart, index) => (
+            <CartItem
+              increamentHandler={increamentHandler}
+              decreamentHandler={decreamentHandler}
+              removeCartHandler={removeCartHandler}
+              key={index}
+              cart={cart}
+            />
+          ))
         ) : (
           <h1>No items in cart</h1>
         )}
@@ -49,7 +81,7 @@ const Cart = () => {
         <p>Shipping charges: {shippingCharges}</p>
         <p>Tax: {tax}</p>
         <p>
-          Discount: <em className="red">- ${dicount}</em>
+          Discount: <em className="red">- ${discount}</em>
         </p>
 
         <p>
@@ -64,7 +96,7 @@ const Cart = () => {
         {coupneCode &&
           (isValidcoupenCode ? (
             <span className="green">
-              ${dicount} off using <code>${coupneCode}</code>
+              ${discount} off using <code>${coupneCode}</code>
             </span>
           ) : (
             <span className="red">

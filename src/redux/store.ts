@@ -3,6 +3,7 @@ import { userApi } from "./api/userApi";
 import { userReducer } from "./reducer/userReducer";
 import { commonApi } from "./api/commonApi";
 import { adminApi } from "./api/adminApi";
+import { cartReducer } from "./reducer/cartReducer";
 export const server = import.meta.env.VITE_SERVER;
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     [adminApi.reducerPath]: adminApi.reducer,
 
     [userReducer.name]: userReducer.reducer,
+    [cartReducer.name]: cartReducer.reducer,
   },
   middleware: (mid) =>
     mid().concat(userApi.middleware, commonApi.middleware, adminApi.middleware),

@@ -1,0 +1,311 @@
+$primary_button_gradient: linear-gradient(
+  90deg,
+  rgba(0, 110, 22, 1) 6%,
+  rgba(162, 105, 19, 1) 51%,
+  rgba(193, 22, 109, 1) 93%
+);
+
+.empty-state-container {
+  background: #ebedf2;
+  font-family: "Poppins", sans-serif;
+  height: calc(100vh - 7vh);
+}
+
+.empty-state {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 40px auto;
+  background: #ffffff;
+  box-shadow: 1px 2px 10px #e1e3ec;
+  border-radius: 4px;
+
+  &__content {
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .empty-state__icon {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      border-radius: 200px;
+      justify-content: center;
+      background-color: #f7fafc;
+      box-shadow: 0px 2px 1px #e1e3ec;
+
+      img {
+        width: 170px;
+      }
+    }
+
+    .empty-state__message {
+      color: #38a169;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-top: 0.85rem;
+    }
+
+    .empty-state__help {
+      color: #a2a5b9;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.credit {
+  color: #a2a5b9;
+  font-size: 0.75rem;
+  text-align: center;
+
+  a {
+    color: #444;
+  }
+}
+
+.primary_button {
+  border: 5px solid var(--primary_button_gradient);
+  border-radius: 0.2rem;
+  padding: 0.5rem 2rem;
+  font-size: 1.3rem;
+  font-weight: bolder;
+}
+
+.product_info {
+  @import url("https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300");
+
+  // background-image: linear-gradient(
+  //   to right bottom,
+  //   #b91eda,
+  //   #a02ae0,
+  //   #8234e5,
+  //   #5d3be8,
+  //   #1241eb
+  // );
+  // height: 100%;
+  // margin: 0;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  background-image: linear-gradient(
+    225deg,
+    hsl(270deg 92% 25%) 72%,
+    hsl(261deg 40% 37%) 86%,
+    hsl(260deg 28% 43%) 92%,
+    hsl(259deg 21% 48%) 95%,
+    hsl(258deg 19% 52%) 98%,
+    hsl(258deg 18% 57%) 99%,
+    hsl(257deg 17% 60%) 100%,
+    hsl(257deg 16% 64%) 101%,
+    hsl(257deg 16% 67%) 101%,
+    hsl(257deg 16% 70%) 101%,
+    hsl(257deg 15% 73%) 102%,
+    hsl(256deg 15% 76%) 102%,
+    hsl(256deg 15% 79%) 102%,
+    hsl(256deg 14% 81%) 102%,
+    hsl(256deg 14% 84%) 101%,
+    hsl(256deg 14% 86%) 101%,
+    hsl(256deg 14% 89%) 101%,
+    hsl(256deg 14% 91%) 101%,
+    hsl(256deg 13% 93%) 101%,
+    hsl(256deg 13% 96%) 100%,
+    hsl(256deg 13% 98%) 100%,
+    hsl(0deg 0% 100%) 100%
+  );
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  main {
+    max-width: 720px;
+  }
+
+  .card {
+    box-shadow: 0 6px 6px rgba(#000, 0.3);
+    transition: 200ms;
+    background: #fff;
+
+    .card__title {
+      display: flex;
+      align-items: center;
+      padding: 30px 40px;
+
+      h3 {
+        flex: 0 1 200px;
+        text-align: right;
+        margin: 0;
+        color: #252525;
+        font-family: sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+
+      .icon {
+        flex: 1 0 10px;
+        background: #115dd8;
+        color: #fff;
+        padding: 10px 10px;
+        transition: 200ms;
+
+        > a {
+          color: #fff;
+        }
+
+        &:hover {
+          background: #252525;
+        }
+      }
+    }
+
+    .card__body {
+      padding: 0 40px;
+      display: flex;
+      flex-flow: row no-wrap;
+      margin-bottom: 25px;
+
+      > .half {
+        box-sizing: border-box;
+        padding: 0 15px;
+        flex: 1 0 50%;
+      }
+
+      > .first_half {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .featured_text {
+          h1 {
+            margin: 0;
+            padding: 0;
+            font-weight: 800;
+            font-family: "Montserrat", sans-serif;
+            font-size: 64px;
+            line-height: 50px;
+            color: #181e28;
+          }
+        }
+
+        p {
+          margin: 0;
+          padding: 0;
+
+          &.sub {
+            font-family: "Montserrat", sans-serif;
+            font-size: 26px;
+            text-transform: uppercase;
+            color: #686e77;
+            font-weight: 300;
+            margin-bottom: 5px;
+          }
+
+          &.price {
+            font-family: "Fjalla One", sans-serif;
+            color: #252525;
+            font-size: 26px;
+          }
+        }
+      }
+
+      .image {
+        padding-top: 15px;
+        width: 100%;
+
+        img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      .description {
+        margin-bottom: 25px;
+
+        p {
+          margin: 0;
+          font-family: "Open Sans", sans-serif;
+          font-weight: 300;
+          line-height: 27px;
+          font-size: 16px;
+          color: #555;
+        }
+      }
+
+      span.stock {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        color: #a1cc16;
+      }
+
+      .reviews {
+        .stars {
+          display: inline-block;
+          list-style: none;
+          padding: 0;
+
+          > li {
+            display: inline-block;
+
+            .fa {
+              color: #f7c01b;
+            }
+          }
+        }
+
+        > span {
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          margin-left: 5px;
+          color: #555;
+        }
+      }
+    }
+
+    .recommend {
+      flex: 1 0 10px;
+
+      p {
+        margin: 0;
+        font-family: "Montserrat", sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 14px;
+        color: #555;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 20px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #115dd8;
+      }
+    }
+
+    .action {
+      button {
+        cursor: pointer;
+        border: 1px solid #115dd8;
+        padding: 14px 30px;
+        border-radius: 200px;
+        color: #fff;
+        background: #115dd8;
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        transition: 200ms;
+
+        &:hover {
+          background: #fff;
+          color: #115dd8;
+        }
+      }
+    }
+  }
+}

@@ -15,3 +15,25 @@ export const SkeletonLoading = () => {
     </div>
   );
 };
+
+export const HomePageLoader = () => {
+  return (
+    <div className="home_loader">
+      <div className="pl">
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__dot"></div>
+        <div className="pl__text">Loading…</div>
+      </div>
+    </div>
+  );
+};

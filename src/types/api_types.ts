@@ -43,8 +43,21 @@ export type allProductsResponse = {
   totalPages: number;
   currPage: number;
 };
-
+export type getPrdouctByIdResponse = {
+  success: boolean;
+  message: string;
+  data: Product;
+};
 export type newProductRequest = {
   id: string;
   formData: FormData;
+};
+export type updateProductRequest = {
+  productId: string;
+  id: string;
+  formData: FormData;
+};
+export type deleteProductRequest = {
+  productId: string;
+  id: string;
 };
