@@ -8,9 +8,16 @@ import { toast } from "react-hot-toast";
 
 import { server } from "../redux/store";
 import { SkeletonLoading } from "../components/loading";
+import { CartItem } from "../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/reducer/cartReducer";
+import { cartReducerInitialState } from "../types/reducer_types";
 
 const Search = () => {
   const [search, setSearch] = useState<string>("");
+  const { cartItems } = useSelector(
+    (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  );
   const {
     data: categoriesResponse,
     isLoading: categoriesLoading,
@@ -32,8 +39,24 @@ const Search = () => {
     sort,
   });
   if (isError) toast.error("Something went wrong while search");
+  const dispatch = useDispatch();
+  const addToCartHandler = (cartItem: CartItem) => {
+    dispatch(addToCart(cartItem));
+    const item = cartItems.find(
+      (item) => item.productId === cartItem.productId
+    );
 
-  const addToCartHandler = () => {};
+    if (!item) {
+      toast.success("Item added to cart");
+    } else {
+      console.log(cartItem, item?.stock!, item?.quantity!);
+      if (item?.stock! > item?.quantity!) {
+        toast.success("Item added to cart");
+      } else {
+        toast.error("Out of stock");
+      }
+    }
+  };
   return (
     <div className="product-search-page">
       <aside>

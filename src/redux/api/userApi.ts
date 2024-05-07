@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { server } from "../store";
-import { messageResponse, userResponse } from "../../types/api_types";
+import {
+  OrderDetailResponse,
+  messageResponse,
+  myOrderResponse,
+  newOrderRequest,
+  userResponse,
+} from "../../types/api_types";
 import { User } from "../../types/types";
 import axios from "axios";
 
@@ -9,6 +15,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/user/`,
   }),
+  tagTypes: ["order"],
   endpoints: (builder) => ({
     login: builder.mutation<messageResponse, User>({
       query: (user) => ({
@@ -16,6 +23,18 @@ export const userApi = createApi({
         method: "POST",
         body: user,
       }),
+    }),
+    orderDetail: builder.query<OrderDetailResponse, string>({
+      query: (id) => `/order/${id}`,
+      providesTags: ["order"],
+    }),
+    newOrder: builder.mutation<messageResponse, newOrderRequest>({
+      query: (order) => ({ url: "new", method: "POST", body: order }),
+      invalidatesTags: ["order"],
+    }),
+    myOrders: builder.query<myOrderResponse, string>({
+      query: (id) => `myOrders?id=${id}`,
+      providesTags: ["order"],
     }),
   }),
 });
@@ -25,11 +44,16 @@ export const getUser = async (id: string) => {
     const { data }: { data: userResponse } = await axios.get(
       `${import.meta.env.VITE_SERVER}/api/v1/user/user/getUserById/${id}`
     );
-    console.log(data)
+    console.log(data);
     return data;
   } catch (error) {
-    console.log(error, "this is error")
- throw error;
+    console.log(error, "this is error");
+    throw error;
   }
 };
-export const { useLoginMutation } = userApi;
+export const {
+  useLoginMutation,
+  useOrderDetailQuery,
+  useNewOrderMutation,
+  useMyOrdersQuery,
+} = userApi;

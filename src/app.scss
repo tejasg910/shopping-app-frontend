@@ -16,8 +16,10 @@
     rgba(162, 105, 19, 1) 51%,
     rgba(193, 22, 109, 1) 93%
   );
+  --info-button: #d9d3d2;
 
   --simple_cards: #676a6b;
+  --border-color: #e8e4e3;
 }
 
 * {
@@ -72,6 +74,7 @@ $primary_button_gradient: linear-gradient(
 @import "styles/common.scss";
 @import "styles/loader.scss";
 @import "styles/admin-styles/dashboard";
+@import "styles/admin-styles/transation";
 @import "styles/admin-styles/products";
 @import "styles/admin-styles/chart";
 @import "styles/admin-styles/dashboardapp";

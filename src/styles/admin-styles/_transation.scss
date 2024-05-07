@@ -1,0 +1,163 @@
+@import "./orders/modals";
+
+.order_details_container {
+  margin: 1rem 7rem;
+  .order_id_section {
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+
+    .heading_div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status_button {
+      padding: 0.5rem 1rem;
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+    .status_button,
+    .shipped {
+      background-color: yellow;
+    }
+    .info_div {
+      display: flex;
+      gap: 1rem;
+
+      button {
+        background-color: var(--info-button);
+
+        padding: 0.3rem 0.5rem;
+        border: none;
+        border-radius: 5px;
+      }
+    }
+  }
+  .customer_section {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+
+    .personal_info {
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      padding: 1rem;
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        button {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+      .table_container {
+        table {
+          width: 100%;
+          th {
+            text-align: inherit;
+          }
+        }
+      }
+    }
+
+    .shipping_address {
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      padding: 1rem;
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        button {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+    }
+
+    .billing_address {
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      padding: 1rem;
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        button {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
+
+  .pricing_section {
+    margin-top: 1rem;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: calc(70% - 10px) calc(30% - 10px);
+    grid-gap: 20px;
+
+    .list {
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      hr {
+        height: 1px;
+        border: none;
+        background-color: var(--border-color);
+      }
+    }
+
+    .heading {
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      button {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+    table {
+      padding: 1rem 1.5rem;
+      width: 100%;
+      text-align: center;
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        img {
+          width: 4rem;
+          height: 4rem;
+        }
+        button {
+          padding: 0.3rem 0.5rem;
+          &:first-child {
+            margin-right: 0.5rem;
+          }
+        }
+
+        // &:nth-last-child(1) {
+        //   text-align: center;
+        // }
+      }
+      th {
+        padding: 1rem;
+        text-align: start;
+      }
+    }
+
+    .pricing {
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+
+      .styler {
+        display: flex;
+        justify-content: center;
+        img {
+          width: 10rem;
+          height: 10rem;
+        }
+      }
+    }
+  }
+}

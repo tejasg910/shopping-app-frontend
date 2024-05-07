@@ -1,0 +1,109 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .save_button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    button {
+      padding: 0.3rem 0.5rem;
+    }
+  }
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.edit_custom_details_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  .heading {
+  }
+  .intput_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    input,
+    select {
+      padding: 0.5rem;
+    }
+  }
+}
+
+.edit_shipping_details_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  .heading {
+  }
+
+  textarea {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+.edit_billing_details_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  .heading {
+  }
+
+  textarea {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+.edit_product_details_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  .input_container {
+    .product_name {
+      margin: 0.5rem 0;
+    }
+    display: flex;
+    flex-direction: column;
+    button {
+      padding: 0.3rem 0.5rem;
+    }
+    .quantity {
+      margin: 1rem 0;
+      span {
+        margin: 0.5rem;
+      }
+    }
+
+    .price_input {
+      input {
+        padding: 0.5rem;
+      }
+    }
+  }
+}
+.hidden {
+  display: none;
+}

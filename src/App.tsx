@@ -16,6 +16,7 @@ import Loader from "./components/admin/Loader";
 import ProtectedRoute from "./components/protected_route";
 import ProductCard from "./components/productcard";
 import ProductInfo from "./components/products/ProductInfo";
+import ManageTransactions from "./pages/admin/management/managetransations";
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
 const Login = lazy(() => import("./pages/login"));
@@ -128,7 +129,7 @@ const App = () => {
 
             <Route
               path="/admin/transaction/:id"
-              element={<TransactionManagement />}
+              element={<ManageTransactions />}
             />
           </Route>
         </Routes>

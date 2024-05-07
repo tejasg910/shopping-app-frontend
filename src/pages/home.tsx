@@ -14,6 +14,7 @@ import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { cartReducerInitialState } from "../types/reducer_types";
+import { IoEllipseSharp } from "react-icons/io5";
 
 const Home = () => {
   const { cartItems } = useSelector(
@@ -29,10 +30,15 @@ const Home = () => {
     const item = cartItems.find(
       (item) => item.productId === cartItem.productId
     );
-    if (item?.stock! > item?.quantity!) {
+
+    if (!item) {
       toast.success("Item added to cart");
     } else {
-      toast.error("Out of stock");
+      if (item?.stock! > item?.quantity!) {
+        toast.success("Item added to cart");
+      } else {
+        toast.error("Out of stock");
+      }
     }
   };
   return (

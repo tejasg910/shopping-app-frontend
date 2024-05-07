@@ -7,10 +7,13 @@ import { cartReducerInitialState } from "../types/reducer_types";
 import { CartItem as CartItemType } from "../types/types";
 import {
   addToCart,
+  applyDiscount,
   calcaulatePricing,
   decreamentCart,
   removeCartItem,
 } from "../redux/reducer/cartReducer";
+import axios from "axios";
+import { server } from "../redux/store";
 
 const Cart = () => {
   const {
@@ -30,15 +33,27 @@ const Cart = () => {
   const [coupneCode, setCoupneCode] = useState<string>("");
   const [isValidcoupenCode, setIsValidCoupneCode] = useState<boolean>(false);
   useEffect(() => {
+    const { token, cancel } = axios.CancelToken.source();
     const id = setTimeout(() => {
-      if (Math.random() > 0.5) {
-        setIsValidCoupneCode(true);
-      } else {
-        setIsValidCoupneCode(false);
-      }
+      axios
+        .get(`${server}/api/v1/pay/coupon/discount?coupon=${coupneCode}`, {
+          cancelToken: token,
+        })
+        .then((res) => {
+          setIsValidCoupneCode(true);
+          console.log(res.data.data.discount);
+          dispatch(applyDiscount(res.data.data.discount));
+          dispatch(calcaulatePricing());
+        })
+        .catch((e) => {
+          setIsValidCoupneCode(false);
+          dispatch(applyDiscount(0));
+          dispatch(calcaulatePricing());
+        });
     }, 1000);
 
     return () => {
+      cancel();
       clearTimeout(id);
     };
   }, [coupneCode]);
@@ -81,22 +96,24 @@ const Cart = () => {
         <p>Shipping charges: {shippingCharges}</p>
         <p>Tax: {tax}</p>
         <p>
-          Discount: <em className="red">- ${discount}</em>
+          Discount: <em className="red">- {discount}</em>
         </p>
 
         <p>
           Total: <b> {total}</b>
         </p>
-        <input
-          value={coupneCode}
-          onChange={(e) => setCoupneCode(e.target.value)}
-          type="text"
-          placeholder="Coupen Code"
-        />
+        {cartItems.length > 0 && (
+          <input
+            value={coupneCode}
+            onChange={(e) => setCoupneCode(e.target.value)}
+            type="text"
+            placeholder="Coupen Code"
+          />
+        )}
         {coupneCode &&
           (isValidcoupenCode ? (
             <span className="green">
-              ${discount} off using <code>${coupneCode}</code>
+              ${discount} off using <code>{coupneCode}</code>
             </span>
           ) : (
             <span className="red">

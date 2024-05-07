@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  OrderDetailResponse,
   allCategoriesResponse,
   getPrdouctByIdResponse,
   latestProductsResponse,
@@ -10,6 +11,7 @@ import Search from "../../pages/search";
 
 export const commonApi = createApi({
   reducerPath: "productApi",
+  tagTypes: ["order"],
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/common/`,
   }),
@@ -23,6 +25,7 @@ export const commonApi = createApi({
     getProductById: builder.query<getPrdouctByIdResponse, string>({
       query: (id) => `/product/${id}`,
     }),
+
     searchProducts: builder.query<searchProductsResponse, searchProductQuery>({
       query: ({ search, page, category, price, sort }) => {
         let base = `/product/search?search=${search}&page=${page}`;

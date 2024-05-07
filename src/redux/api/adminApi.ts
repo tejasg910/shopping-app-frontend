@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  UpdateOrderRequest,
   allProductsResponse,
   deleteProductRequest,
   messageResponse,
+  myOrderResponse,
   newProductRequest,
   updateProductRequest,
 } from "../../types/api_types";
@@ -15,16 +17,27 @@ export const refetchLatestProducts = createAsyncThunk(
     useGetLatestProductsQuery("");
   }
 );
+export const refetchAllOrders = createAsyncThunk(
+  "adminApi/refetchAllOrders",
+  async (_) => {
+    // Dispatch the getLatestProducts query to refetch the latest products
+    useGetAllOrdersQuery("");
+  }
+);
 export const adminApi = createApi({
   reducerPath: "adminProductApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/admin/`,
   }),
-  tagTypes: ["product"],
+  tagTypes: ["product", "order"],
   endpoints: (builder) => ({
     getAllProducts: builder.query<allProductsResponse, string>({
       query: (id) => `/product/getAll?id=${id}`,
       providesTags: ["product"],
+    }),
+    getAllOrders: builder.query<myOrderResponse, string>({
+      query: (id) => `/order/allOrders?id=${id}`,
+      providesTags: ["order"],
     }),
     newProduct: builder.mutation<messageResponse, newProductRequest>({
       query: ({ formData, id }) => ({
@@ -50,12 +63,35 @@ export const adminApi = createApi({
         await dispatch(refetchLatestProducts());
       },
     }),
+
+    updateOrder: builder.mutation<messageResponse, UpdateOrderRequest>({
+      query: ({ id, status, userId }) => ({
+        url: `order/updateOrder/${id}?id=${userId}`,
+        method: "PUT",
+        body: { status },
+      }),
+      invalidatesTags: ["order"],
+    }),
     deleteProduct: builder.mutation<messageResponse, deleteProductRequest>({
       query: ({ productId, id }) => ({
         url: `product/delete/${productId}?id=${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["product"],
+
+      // async onQueryStarted(_, { dispatch }) {
+      //   await dispatch(refetchLatestProducts());
+      // },
+    }),
+    deleteOrder: builder.mutation<
+      messageResponse,
+      { id: string; userId: string }
+    >({
+      query: ({ id, userId }) => ({
+        url: `product/delete/${id}?id=${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["order"],
 
       // async onQueryStarted(_, { dispatch }) {
       //   await dispatch(refetchLatestProducts());
@@ -69,4 +105,7 @@ export const {
   useNewProductMutation,
   useUdpateProductMutation,
   useDeleteProductMutation,
+  useGetAllOrdersQuery,
+  useUpdateOrderMutation,
+  useDeleteOrderMutation,
 } = adminApi;
