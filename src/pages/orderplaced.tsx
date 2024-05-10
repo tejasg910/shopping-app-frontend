@@ -1,8 +1,6 @@
-import { combineSlices } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import {
-  Navigate,
-  useLocation,
+ 
   useNavigate,
   useSearchParams,
 } from "react-router-dom";

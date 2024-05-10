@@ -1,4 +1,4 @@
-import { CartItem, Product, ShippingInfo, User } from "./types";
+import {  Product, ShippingInfo, User } from "./types";
 
 export type messageResponse = {
   success: boolean;

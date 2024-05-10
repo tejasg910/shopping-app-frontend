@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import OpenModal from "../components/common/OpenModal";
 
 const OrderDetail = () => {

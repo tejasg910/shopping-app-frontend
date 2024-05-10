@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { useNewProductMutation } from "../../../redux/api/adminApi";
 import { useSelector } from "react-redux";
-import { userReducer } from "../../../redux/reducer/userReducer";
 import { userReducerInitialState } from "../../../types/reducer_types";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";

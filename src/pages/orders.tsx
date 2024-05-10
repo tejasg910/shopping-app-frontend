@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import  { ReactElement, useEffect, useState } from "react";
 import TableHOC from "../components/admin/TableHOC";
 import { Column } from "react-table";
 import { Link } from "react-router-dom";
@@ -58,7 +58,7 @@ const Orders = () => {
   const { user } = useSelector(
     (state: { userReducer: userReducerInitialState }) => state.userReducer
   );
-  const { data, isError, error, isLoading } = useMyOrdersQuery(user?._id!);
+  const { data, isError, } = useMyOrdersQuery(user?._id!);
   if (isError) return toast.error("Failed to fetch orders");
 
   const [rows, setRows] = useState<Order[]>([]);

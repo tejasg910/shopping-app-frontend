@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  OrderDetailResponse,
+  
   allCategoriesResponse,
   getPrdouctByIdResponse,
   latestProductsResponse,
   searchProductQuery,
   searchProductsResponse,
 } from "../../types/api_types";
-import Search from "../../pages/search";
 
 export const commonApi = createApi({
   reducerPath: "productApi",

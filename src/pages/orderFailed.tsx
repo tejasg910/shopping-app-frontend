@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import  { useEffect } from "react";
+import {  useNavigate, useSearchParams } from "react-router-dom";
 
 const OrderFailed = () => {
   const navigate = useNavigate();

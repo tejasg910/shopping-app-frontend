@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import {
-  MotionValue,
+  
   motion,
   useAnimation,
   useInView,
@@ -8,13 +8,10 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-function useParallax(value: MotionValue<number>, distance: number) {
-  return useTransform(value, [0, 1], [-distance, distance]);
-}
+
 const FeatureProdcutCard = () => {
   const ref = useRef(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
-  const y = useParallax(scrollYProgress, 300);
   const isInview = useInView(ref);
   useEffect(() => {
     console.log("is in view", isInview);

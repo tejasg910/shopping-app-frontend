@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import  { FormEvent, useState } from "react";
 import {
   Elements,
   PaymentElement,
@@ -8,7 +8,6 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-hot-toast";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useNewOrderMutation } from "../redux/api/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cartReducerInitialState,

@@ -1,20 +1,15 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/productcard";
 import { useGetLatestProductsQuery } from "../redux/api/commonApi";
-import Loader from "../components/admin/Loader";
 import { server } from "../redux/store";
 import { toast } from "react-hot-toast";
-import { SiDigikeyelectronics } from "react-icons/si";
 import { SkeletonLoading } from "../components/loading";
 import { Carousel } from "react-responsive-carousel";
 import FeatureProdcutCard from "../components/products/FeatureProdcutCard";
-import OfferCard from "../components/products/OfferCard";
 import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { cartReducerInitialState } from "../types/reducer_types";
-import { IoEllipseSharp } from "react-icons/io5";
 
 const Home = () => {
   const { cartItems } = useSelector(
