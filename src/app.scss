@@ -69,7 +69,6 @@ $primary_button_gradient: linear-gradient(
 
 @import "styles/admin-styles/mixin";
 @import "styles/variable.scss";
-@import "styles/utility.scss";
 
 @import "styles/common.scss";
 @import "styles/loader.scss";
@@ -86,6 +85,9 @@ $primary_button_gradient: linear-gradient(
 @import "styles/search.scss";
 @import "styles/order.scss";
 @import "styles/orderdetail.scss";
+@import "styles/checkout.scss";
+@import "styles/orderstatus.scss";
+@import "styles/utility.scss";
 
 .container {
   max-width: 1367px;

@@ -1,11 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { cartReducerInitialState } from "../types/reducer_types";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { server } from "../redux/store";
+import { saveShippingInfo } from "../redux/reducer/cartReducer";
 
 const Shipping = () => {
-  const { cartItems } = useSelector(
+  const { cartItems, total } = useSelector(
     (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
   );
   const navigate = useNavigate();
@@ -14,8 +18,10 @@ const Shipping = () => {
     city: "",
     state: "",
     country: "",
-    pin: "",
+    pinCode: "",
   });
+
+  const dispatch = useDispatch();
 
   const changeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -23,6 +29,19 @@ const Shipping = () => {
     setShippingInfo((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
+  };
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      dispatch(saveShippingInfo(shippingInfo));
+      const res = await axios.post(`${server}/api/v1/pay/new`, {
+        amount: total,
+      });
+      console.log(res, "this is res");
+      navigate("/pay", { state: res.data?.data?.clientSecret });
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -38,7 +57,7 @@ const Shipping = () => {
       >
         <BiArrowBack />
       </button>
-      <form action="">
+      <form action="" onSubmit={submitHandler}>
         <h1>Shipping Address</h1>
         <input
           type="text"
@@ -73,9 +92,9 @@ const Shipping = () => {
         </select>
         <input
           type="text"
-          name="pin"
+          name="pinCode"
           placeholder="Pin"
-          value={shippingInfo.pin}
+          value={shippingInfo.pinCode}
           onChange={changeHandler}
         />
         <input className="submitBtn" type="submit" value="PAY" />

@@ -17,8 +17,10 @@ import ProtectedRoute from "./components/protected_route";
 import ProductCard from "./components/productcard";
 import ProductInfo from "./components/products/ProductInfo";
 import ManageTransactions from "./pages/admin/management/managetransations";
+
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
+const Checkout = lazy(() => import("./pages/Checkout"));
 const Login = lazy(() => import("./pages/login"));
 const Search = lazy(() => import("./pages/search"));
 const Cart = lazy(() => import("./pages/cart"));
@@ -34,6 +36,8 @@ const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
 const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
 const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const OrderDetail = lazy(() => import("./pages/orderDetail"));
+const Orderplaced = lazy(() => import("./pages/orderplaced"));
+const OrderFailed = lazy(() => import("./pages/orderFailed"));
 
 const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(
@@ -96,7 +100,10 @@ const App = () => {
           >
             <Route element={<Shipping />} path="/shipping" />
             <Route element={<Orders />} path="/orders" />
+            <Route element={<Checkout />} path="/pay" />
             <Route element={<OrderDetail />} path="/order/:id" />
+            <Route element={<Orderplaced />} path="/order/success" />
+            <Route element={<OrderFailed />} path="/order/failed" />
           </Route>
 
           {/* admin routes */}

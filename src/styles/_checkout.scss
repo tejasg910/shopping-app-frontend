@@ -1,0 +1,15 @@
+.payment_form {
+  margin: 1rem auto;
+  width: 30rem;
+  form {
+    button {
+      padding: 0.5rem 1rem;
+      background-color: $color3;
+      color: var(--text);
+      width: 100%;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+  }
+}

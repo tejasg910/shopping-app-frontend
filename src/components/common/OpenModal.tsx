@@ -1,16 +1,20 @@
 import React, { ReactElement, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type EditCustomDetailsProps = {
+type OpenModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  saveButtonName: string;
+  cancelButtonName: string;
 };
 
-const EditCustomerDetails: React.FC<EditCustomDetailsProps> = ({
+const OpenModal: React.FC<OpenModalProps> = ({
   isOpen,
   onClose,
   children,
+  saveButtonName = "Save",
+  cancelButtonName = "Cancel",
 }) => {
   return (
     <AnimatePresence>
@@ -32,8 +36,8 @@ const EditCustomerDetails: React.FC<EditCustomDetailsProps> = ({
             {children}
 
             <div className="save_button">
-              <button>Save</button>
-              <button onClick={onClose}>Cancel</button>
+              <button>{saveButtonName}</button>
+              <button onClick={onClose}>{cancelButtonName}</button>
             </div>
           </motion.div>
         </motion.div>
@@ -42,4 +46,4 @@ const EditCustomerDetails: React.FC<EditCustomDetailsProps> = ({
   );
 };
 
-export default EditCustomerDetails;
+export default OpenModal;

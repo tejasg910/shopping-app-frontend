@@ -3,6 +3,7 @@ import { CartItem, Product, ShippingInfo, User } from "./types";
 export type messageResponse = {
   success: boolean;
   message: string;
+  
 };
 
 export type userResponse = {
@@ -85,10 +86,10 @@ export type deleteProductRequest = {
   id: string;
 };
 
-type orderItems = Omit<CartItem, "stock"> & { _id: string };
+type orderItems = { product: string; quantity: number };
 export type newOrderRequest = {
   shippingInfo: ShippingInfo;
-  orderItems: orderItems[];
+  products: orderItems[];
   user: string;
   subTotal: number;
   discount: number;

@@ -29,11 +29,15 @@ export const userApi = createApi({
       providesTags: ["order"],
     }),
     newOrder: builder.mutation<messageResponse, newOrderRequest>({
-      query: (order) => ({ url: "new", method: "POST", body: order }),
+      query: (order) => ({ url: "order/new", method: "POST", body: order }),
       invalidatesTags: ["order"],
     }),
+    cancelOrder: builder.query<messageResponse, string>({
+      query: (id) => `order/cancel/${id}`,
+      providesTags: ["order"],
+    }),
     myOrders: builder.query<myOrderResponse, string>({
-      query: (id) => `myOrders?id=${id}`,
+      query: (id) => `order/myOrders?id=${id}`,
       providesTags: ["order"],
     }),
   }),

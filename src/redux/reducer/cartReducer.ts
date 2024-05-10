@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { cartReducerInitialState } from "../../types/reducer_types";
-import { CartItem } from "../../types/types";
+import { CartItem, ShippingInfo } from "../../types/types";
 const initialState: cartReducerInitialState = {
   loading: false,
   cartItems: [],
@@ -79,6 +79,10 @@ export const cartReducer = createSlice({
     applyDiscount: (state, action) => {
       state.discount = action.payload;
     },
+    saveShippingInfo: (state, action: PayloadAction<ShippingInfo>) => {
+      state.shippingInfo = action.payload;
+    },
+    resetCart: () => initialState,
   },
 });
 
@@ -88,4 +92,6 @@ export const {
   decreamentCart,
   calcaulatePricing,
   applyDiscount,
+  saveShippingInfo,
+  resetCart,
 } = cartReducer.actions;

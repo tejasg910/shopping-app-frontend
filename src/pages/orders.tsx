@@ -1,14 +1,30 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import TableHOC from "../components/admin/TableHOC";
 import { Column } from "react-table";
 import { Link } from "react-router-dom";
+import { useMyOrdersQuery } from "../redux/api/userApi";
+import { useSelector } from "react-redux";
+import { userReducerInitialState } from "../types/reducer_types";
+import { toast } from "react-hot-toast";
+import { Order } from "../types/api_types";
+import { Product, ShippingInfo } from "../types/types";
 type DataType = {
   _id: string;
-  amount: number;
+  total: number;
   quantity: number;
   discount: number;
-  status: ReactElement;
-  action: ReactElement;
+  status: string;
+  action?: ReactElement;
+  shippingInfo?: ShippingInfo;
+  user?: {
+    name: string;
+    _id: string;
+  };
+  subTotal?: number;
+  shippingCharges?: number;
+  product?: Product;
+  name?: string;
+  tax?: number;
 };
 
 const column: Column<DataType>[] = [
@@ -18,7 +34,7 @@ const column: Column<DataType>[] = [
   },
   {
     Header: "Amount",
-    accessor: "amount",
+    accessor: "total",
   },
   {
     Header: "Qantity",
@@ -39,17 +55,26 @@ const column: Column<DataType>[] = [
   },
 ];
 const Orders = () => {
-  const [rows, setRows] = useState<DataType[]>([
-    {
-      _id: "fdsfsdf",
-      amount: 5000,
-      quantity: 20,
-      discount: 400,
-      status: <span className="red">Processing</span>,
-      action: <Link to={`/order/fdsfsdf`}>View</Link>,
-    },
-  ]);
-  const Table = TableHOC<DataType>(
+  const { user } = useSelector(
+    (state: { userReducer: userReducerInitialState }) => state.userReducer
+  );
+  const { data, isError, error, isLoading } = useMyOrdersQuery(user?._id!);
+  if (isError) return toast.error("Failed to fetch orders");
+
+  const [rows, setRows] = useState<Order[]>([]);
+
+  useEffect(() => {
+    if (data?.data) {
+      const orderItems = data.data.map((item) => {
+        return {
+          ...item,
+          action: <Link to={`/order/fdsfsdf`}>View</Link>,
+        };
+      });
+      setRows(orderItems);
+    }
+  }, [data]);
+  const Table = TableHOC(
     column,
     rows,
     "dashboard-product-box",

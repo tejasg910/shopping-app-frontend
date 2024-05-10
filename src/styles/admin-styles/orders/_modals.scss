@@ -15,7 +15,13 @@
     justify-content: flex-end;
     gap: 1rem;
     button {
-      padding: 0.3rem 0.5rem;
+      padding: 0.3rem 0.7rem;
+      background-color: $color3;
+      color: $color1;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
     }
   }
 }

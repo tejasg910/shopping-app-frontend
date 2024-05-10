@@ -1,6 +1,6 @@
 import { startAt } from "firebase/database";
 import React, { useState } from "react";
-import EditCustomerDetails from "./ordersModals/EditCustomerDetails";
+import EditCustomerDetails from "../../../components/common/OpenModal";
 import CustomDetails from "./ordersModals/CustomDetails";
 import ShippingDetails from "./ordersModals/ShippingDetails";
 import BillingDetails from "./ordersModals/BillingDetails";
@@ -204,7 +204,12 @@ const ManageTransactions = () => {
         </div>
       </section>
 
-      <EditCustomerDetails isOpen={isOpen} onClose={closeModal}>
+      <EditCustomerDetails
+        saveButtonName={"Save"}
+        cancelButtonName={"Cancel"}
+        isOpen={isOpen}
+        onClose={closeModal}
+      >
         {isOpen && modalType === "customer_info" && <CustomDetails />}
         {isOpen && modalType === "shipping_info" && <ShippingDetails />}
         {isOpen && modalType === "billing_info" && <BillingDetails />}
