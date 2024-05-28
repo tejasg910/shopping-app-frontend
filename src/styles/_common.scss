@@ -309,3 +309,39 @@ $primary_button_gradient: linear-gradient(
     }
   }
 }
+.table_component_container {
+  .table_component {
+    width: 50rem;
+    margin: 0 auto;
+    text-align: left;
+    tr {
+      th,
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        button {
+          padding: 0.2rem 0.7rem;
+          background-color: $color3;
+          color: $color1;
+          border: none;
+          border-radius: 2px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      background-color: $color3;
+      padding: 0.2rem 0.5rem;
+      border: none;
+      border-radius: 5px;
+      color: $color1;
+      margin: 1rem;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,9 +1,8 @@
-import {  Product, ShippingInfo, User } from "./types";
+import { Product, ShippingInfo, User } from "./types";
 
 export type messageResponse = {
   success: boolean;
   message: string;
-  
 };
 
 export type userResponse = {
@@ -27,6 +26,8 @@ export type myOrderResponse = {
   success: boolean;
   message: string;
   data: Order[];
+  currPage: number;
+  totalPages: number;
 };
 
 export type Order = {
@@ -35,16 +36,21 @@ export type Order = {
   user: {
     name: string;
     _id: string;
+    email: string;
+    mobile: string;
   };
   subTotal: number;
   discount: number;
   shippingCharges: number;
   status: string;
-  product: Product;
+  products: { product: Product; quantity: number }[];
   quantity: number;
   name: string;
   tax: number;
   total: number;
+  paymentStatus: string;
+  paymentMode: string;
+  createdAt?: Date;
 };
 export type searchProductsResponse = {
   success: boolean;

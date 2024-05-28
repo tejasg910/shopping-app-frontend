@@ -32,3 +32,28 @@ export interface CartItem {
   quantity: number;
   stock: number;
 }
+
+export type OrderDetails = {
+  data: {
+    shippingInfo: ShippingInfo;
+    user: User;
+    subTotal: number;
+    tax: number;
+    shippingCharges: number;
+    discount: number;
+    total: number;
+    status: string;
+    // name: { type: String, required: [true, "Plase enter name"] },
+    products: [
+      {
+        product: Product;
+        quantity: number;
+      }
+    ];
+
+    paymentMode: string;
+    paymentStatus: string;
+
+    isDeleted: boolean;
+  };
+};

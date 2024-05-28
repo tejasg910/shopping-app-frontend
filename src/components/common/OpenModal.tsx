@@ -1,4 +1,4 @@
-import React, {  ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type OpenModalProps = {
@@ -6,6 +6,7 @@ type OpenModalProps = {
   onClose: () => void;
   children: ReactNode;
   saveButtonName: string;
+  onConfirm: () => void;
   cancelButtonName: string;
 };
 
@@ -15,6 +16,7 @@ const OpenModal: React.FC<OpenModalProps> = ({
   children,
   saveButtonName = "Save",
   cancelButtonName = "Cancel",
+  onConfirm,
 }) => {
   return (
     <AnimatePresence>
@@ -36,7 +38,7 @@ const OpenModal: React.FC<OpenModalProps> = ({
             {children}
 
             <div className="save_button">
-              <button>{saveButtonName}</button>
+              <button onClick={onConfirm}>{saveButtonName}</button>
               <button onClick={onClose}>{cancelButtonName}</button>
             </div>
           </motion.div>

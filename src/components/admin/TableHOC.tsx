@@ -16,6 +16,7 @@ function TableHOC<T extends Object>(
   containerClassname: string,
   heading: string,
   showPagination: boolean = false,
+  
 
 ) {
   return function HOC() {

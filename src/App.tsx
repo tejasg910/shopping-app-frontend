@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./app.scss";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Loading, { HomePageLoader } from "./components/loading";
+import { HomePageLoader } from "./components/loading";
 import Header from "./components/header";
 import Shipping from "./pages/shipping";
 import { Toaster, toast } from "react-hot-toast";
@@ -14,9 +14,9 @@ import { getUser } from "./redux/api/userApi";
 import { userReducerInitialState } from "./types/reducer_types";
 import Loader from "./components/admin/Loader";
 import ProtectedRoute from "./components/protected_route";
-import ProductCard from "./components/productcard";
 import ProductInfo from "./components/products/ProductInfo";
 import ManageTransactions from "./pages/admin/management/managetransations";
+import AdminOrders from "./pages/admin/adminorders";
 
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
@@ -43,9 +43,9 @@ const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(
   () => import("./pages/admin/management/productmanagement")
 );
-const TransactionManagement = lazy(
-  () => import("./pages/admin/management/transactionmanagement")
-);
+// const TransactionManagement = lazy(
+//   () => import("./pages/admin/management/transactionmanagement")
+// );
 
 const App = () => {
   const { user, loading } = useSelector(
@@ -119,7 +119,7 @@ const App = () => {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
-            <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/transaction" element={<AdminOrders />} />
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />

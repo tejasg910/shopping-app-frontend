@@ -17,13 +17,13 @@ export const refetchLatestProducts = createAsyncThunk(
     useGetLatestProductsQuery("");
   }
 );
-export const refetchAllOrders = createAsyncThunk(
-  "adminApi/refetchAllOrders",
-  async (_) => {
-    // Dispatch the getLatestProducts query to refetch the latest products
-    useGetAllOrdersQuery("");
-  }
-);
+// export const refetchAllOrders = createAsyncThunk(
+//   "adminApi/refetchAllOrders",
+//   async (_) => {
+//     // Dispatch the getLatestProducts query to refetch the latest products
+//     useGetAllOrdersQuery("");
+//   }
+// );
 export const adminApi = createApi({
   reducerPath: "adminProductApi",
   baseQuery: fetchBaseQuery({
@@ -35,8 +35,11 @@ export const adminApi = createApi({
       query: (id) => `/product/getAll?id=${id}`,
       providesTags: ["product"],
     }),
-    getAllOrders: builder.query<myOrderResponse, string>({
-      query: (id) => `/order/allOrders?id=${id}`,
+    getAllOrders: builder.query<
+      myOrderResponse,
+      { userId: string; page: number }
+    >({
+      query: ({ userId, page }) => `/order/allOrders?page=${page}&id=${userId}`,
       providesTags: ["order"],
     }),
     newProduct: builder.mutation<messageResponse, newProductRequest>({
@@ -58,15 +61,11 @@ export const adminApi = createApi({
         body: formData,
       }),
       invalidatesTags: ["product"],
-
-      async onQueryStarted(_, { dispatch }) {
-        await dispatch(refetchLatestProducts());
-      },
     }),
 
-    updateOrder: builder.mutation<messageResponse, UpdateOrderRequest>({
+    updateOrderStatus: builder.mutation<messageResponse, UpdateOrderRequest>({
       query: ({ id, status, userId }) => ({
-        url: `order/updateOrder/${id}?id=${userId}`,
+        url: `order/updateOrderStatus/${id}?id=${userId}`,
         method: "PUT",
         body: { status },
       }),
@@ -106,6 +105,6 @@ export const {
   useUdpateProductMutation,
   useDeleteProductMutation,
   useGetAllOrdersQuery,
-  useUpdateOrderMutation,
+  useUpdateOrderStatusMutation,
   useDeleteOrderMutation,
 } = adminApi;

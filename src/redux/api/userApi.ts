@@ -23,10 +23,7 @@ export const userApi = createApi({
         body: user,
       }),
     }),
-    orderDetail: builder.query<OrderDetailResponse, string>({
-      query: (id) => `/order/${id}`,
-      providesTags: ["order"],
-    }),
+
     newOrder: builder.mutation<messageResponse, newOrderRequest>({
       query: (order) => ({ url: "order/new", method: "POST", body: order }),
       invalidatesTags: ["order"],
@@ -36,7 +33,7 @@ export const userApi = createApi({
       providesTags: ["order"],
     }),
     myOrders: builder.query<myOrderResponse, string>({
-      query: (id) => `order/myOrders?id=${id}`,
+      query: (id) => `order/myOrders/?id=${id}`,
       providesTags: ["order"],
     }),
   }),
@@ -56,7 +53,7 @@ export const getUser = async (id: string) => {
 };
 export const {
   useLoginMutation,
-  useOrderDetailQuery,
+
   useNewOrderMutation,
   useMyOrdersQuery,
 } = userApi;

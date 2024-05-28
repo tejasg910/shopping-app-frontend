@@ -1,5 +1,6 @@
 .orderDetail {
   @include flex(column, center, center);
+  margin: 1rem 7rem;
 
   .image_section {
     > img {
@@ -9,7 +10,6 @@
     }
   }
   > div {
-    max-width: 40rem;
     > p > span {
       font-weight: 500;
     }
@@ -79,8 +79,10 @@
   }
 
   .order_details_status_container {
-    width: 40rem;
-    .container {
+    width: 100%;
+    .order_container {
+      margin: 0 7rem;
+
       .row {
         display: flex;
       }
@@ -173,4 +175,8 @@
       background-color: #27aa80;
     }
   }
+}
+
+.my_order_details {
+  width: 100%;
 }

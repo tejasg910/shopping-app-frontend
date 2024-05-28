@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  
+  OrderDetailResponse,
   allCategoriesResponse,
   getPrdouctByIdResponse,
   latestProductsResponse,
@@ -14,7 +14,15 @@ export const commonApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/common/`,
   }),
+
   endpoints: (builder) => ({
+    orderDetail: builder.query<
+      OrderDetailResponse,
+      { id: string; orderId: string }
+    >({
+      query: ({ id, orderId }) => `/order/orderDetails/${orderId}?id=${id}`,
+      providesTags: ["order"],
+    }),
     getLatestProducts: builder.query<latestProductsResponse, string>({
       query: () => "/product/latest",
     }),
@@ -44,4 +52,5 @@ export const {
   useGetAllCategoriesQuery,
   useSearchProductsQuery,
   useGetProductByIdQuery,
+  useOrderDetailQuery,
 } = commonApi;
