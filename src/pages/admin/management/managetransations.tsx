@@ -14,10 +14,16 @@ import { showToast } from "../../../feature";
 import { server } from "../../../redux/store";
 import DeleteOrderProduct from "./ordersModals/DeleteOrderProduct";
 import BillingTotalDetails from "./ordersModals/BillingTotalDetails";
+import { Product } from "../../../types/types";
 
 const ManageTransactions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [products, setProducts] = useState<
+    { product: Product; quantity: number }[]
+  >([]);
+  const [productCurrPage, setProductCurrPage] = useState(1);
+  const [productTotalPages, setProductTotalPages] = useState(1);
   const { id } = useParams();
   const [orderId, setOrderId] = useState<string>(id!);
   const { user } = useSelector(
@@ -79,13 +85,48 @@ const ManageTransactions = () => {
     _id: data?.data._id!,
   };
 
-  console.log(data?.data, "thisis order details");
   const [orderStatus, setOrderStatus] = useState(data?.data.status);
   if (isError) return toast.error("Something went wrong while fetching order");
   const [changeOrderStatus] = useUpdateOrderStatusMutation();
   const openModal = (type: string) => {
     setModalType(type);
     setIsOpen(true);
+  };
+
+  useEffect(() => {
+    if (data?.data) {
+      const itemsPerPage = 4;
+      const skip = itemsPerPage * (productCurrPage - 1);
+
+      const newProducts = data.data.products.slice(skip, skip + itemsPerPage);
+      console.log(
+        newProducts,
+        "this is products",
+        skip,
+        productTotalPages - 1,
+        data?.data.products
+      );
+      setProducts(newProducts);
+      setProductTotalPages(Math.ceil(data.data.products.length / 4));
+    }
+  }, [data, productCurrPage]);
+
+  const productNextPageHandler = () => {
+    if (productTotalPages > productCurrPage) {
+      setProductCurrPage((prev) => prev + 1);
+      const skip = 4 * (productCurrPage - 1);
+      const newProducts = products.slice(skip - 1, productTotalPages - 1);
+      setProducts(newProducts);
+    }
+  };
+
+  const productPrevPageHandler = () => {
+    if (productCurrPage > 1) {
+      setProductCurrPage((prev) => prev - 1);
+      const skip = 4 * (productCurrPage - 1);
+      const newProducts = products.slice(skip - 1, productTotalPages - 1);
+      setProducts(newProducts);
+    }
   };
   const updateOrderStatusHandler = async (
     e: ChangeEvent<HTMLSelectElement>
@@ -197,7 +238,7 @@ const ManageTransactions = () => {
               <td>Price</td>
               <td>Action</td>
             </tr>
-            {data?.data.products.map((product) => {
+            {products.map((product) => {
               return (
                 product && (
                   <tr>
@@ -233,6 +274,13 @@ const ManageTransactions = () => {
               );
             })}
           </table>
+          <div className="pagination">
+            <button onClick={productPrevPageHandler}>Prev</button>
+            <span>
+              {productCurrPage} of {productTotalPages}
+            </span>
+            <button onClick={productNextPageHandler}>Next</button>
+          </div>
         </div>
         <div className="pricing">
           <div className="heading">

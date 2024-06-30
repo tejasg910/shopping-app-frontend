@@ -330,18 +330,18 @@ $primary_button_gradient: linear-gradient(
       }
     }
   }
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    button {
-      background-color: $color3;
-      padding: 0.2rem 0.5rem;
-      border: none;
-      border-radius: 5px;
-      color: $color1;
-      margin: 1rem;
-      cursor: pointer;
-    }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    background-color: $color3;
+    padding: 0.2rem 0.5rem;
+    border: none;
+    border-radius: 5px;
+    color: $color1;
+    margin: 1rem;
+    cursor: pointer;
   }
 }
