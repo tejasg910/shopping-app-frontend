@@ -8,10 +8,6 @@ import { userReducerInitialState } from "../../types/reducer_types";
 import { SkeletonLoading } from "../../components/loading";
 import { toast } from "react-hot-toast";
 
-
-
-
-
 // const img =
 //   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
@@ -51,42 +47,51 @@ const Products = () => {
         {isLoading ? (
           <SkeletonLoading />
         ) : (
-          <div className="product_table_container">
-            <div className="container">
-              <h2>
-                Responsive Tables Using LI <small>Triggers on 767px</small>
-              </h2>
-              <ul className="responsive-table">
-                <li className="table-header">
-                  <div className="col col-2">Image</div>
-                  <div className="col col-3">Name</div>
-                  <div className="col col-4">Price</div>
-                  <div className="col col-4">Stock</div>
-                </li>
-                {data?.data.map((product) => {
-                  return (
-                    <li className="table-row">
-                      <div className="col col-2" data-label="Customer Name">
-                        <img
-                          src={server + "/" + product.image}
-                          alt=""
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                      <div className="col col-3" data-label="Amount">
-                        {product?.name}
-                      </div>
-                      <div className="col col-4" data-label="Payment Status">
-                        {product?.price}
-                      </div>
-                      <div className="col col-4" data-label="Payment Status">
-                        {product?.stock}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+          <div className="main_product_table_container">
+            <div className="product_table_container">
+              <div className="container">
+                <h2>
+                  Responsive Tables Using LI <small>Triggers on 767px</small>
+                </h2>
+                <ul className="responsive-table">
+                  <li className="table-header">
+                    <div className="col col-2">Image</div>
+                    <div className="col col-3">Name</div>
+                    <div className="col col-4">Price</div>
+                    <div className="col col-4">Stock</div>
+                    <div className="col col-4">Action</div>
+                  </li>
+                  {data?.data.map((product) => {
+                    return (
+                      <li className="table-row">
+                        <div className="col col-2" data-label="Customer Name">
+                          <img
+                            src={server + "/" + product.image}
+                            alt=""
+                            width={50}
+                            height={50}
+                          />
+                        </div>
+                        <div className="col col-3" data-label="Amount">
+                          {product?.name}
+                        </div>
+                        <div className="col col-4" data-label="Payment Status">
+                          {product?.price}
+                        </div>
+                        <div className="col col-4" data-label="Payment Status">
+                          {product?.stock}
+                        </div>
+
+                        <div className="col col-4" data-label="Payment Status">
+                          <Link to={`/admin/product/${product._id}`}>
+                            <button className="btn">Manage</button>
+                          </Link>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
         )}

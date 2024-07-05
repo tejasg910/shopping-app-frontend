@@ -178,4 +178,18 @@
   }
 }
 
-
+.main_product_table_container {
+  button {
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgba(0, 115, 255);
+    color: white;
+    &:disabled {
+      background-color: rgba(0, 115, 255, 0.1);
+      cursor: not-allowed;
+    }
+  }
+}
