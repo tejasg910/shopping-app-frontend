@@ -1,10 +1,8 @@
 import { useState } from "react";
 import OpenModal from "../components/common/OpenModal";
-import { useMyOrdersQuery } from "../redux/api/userApi";
 import { useSelector } from "react-redux";
 import { userReducerInitialState } from "../types/reducer_types";
 import { toast } from "react-hot-toast";
-import { OrderDetails, Product, ShippingInfo, User } from "../types/types";
 import { useParams } from "react-router-dom";
 import { Order } from "../types/api_types";
 import { server } from "../redux/store";
@@ -133,6 +131,7 @@ const OrderDetail = () => {
         isOpen={isOpen}
         onClose={CloseDialogHandler}
         saveButtonName="Confirm"
+        onConfirm={()=>{}}
       >
         <div>
           <p>Are you sure to cancel this superb order?</p>

@@ -5,7 +5,6 @@ import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import data from "./data.json";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
-import Table from "../../components/admin/DashboardTable";
 const userImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
 
@@ -95,7 +94,41 @@ const Dashboard = () => {
               <BiMaleFemale />
             </p>
           </div>
-          <Table data={data.transaction} />
+
+          <div className="table_container">
+            <div className="product_table_container">
+              <div className="container">
+           
+                <ul className="responsive-table">
+                  <li className="table-header">
+                    <div className="col col-3">Amount</div>
+                    <div className="col col-4">Quantity</div>
+                    <div className="col col-4">Discount</div>
+                    <div className="col col-4">Status</div>
+                  </li>
+                  {data?.transaction.map((transaction) => {
+                    return (
+                      <li className="table-row">
+                   
+                        <div className="col col-3" data-label="Amount">
+                          {transaction.amount}
+                        </div>
+                        <div className="col col-4" data-label="Payment Status">
+                          {transaction.discount}
+                        </div>
+                        <div className="col col-4" data-label="Payment Status">
+                          {transaction.quantity}
+                        </div>
+                        <div className="col col-4" data-label="Payment Status">
+                          {transaction.status}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>

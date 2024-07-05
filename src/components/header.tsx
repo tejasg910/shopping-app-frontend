@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   FaSearch,
   FaShoppingBag,
@@ -12,7 +12,6 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
 import OfferCard from "./products/OfferCard";
-const user = { _id: "", role: "" };
 interface PropsTypes {
   user: User | null;
 }

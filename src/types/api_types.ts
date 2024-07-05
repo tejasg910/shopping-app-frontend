@@ -73,6 +73,14 @@ export type allProductsResponse = {
   totalPages: number;
   currPage: number;
 };
+
+export type allUsersResponse = {
+  success: boolean;
+  message: string;
+  data: User[];
+  totalPages: number;
+  currPage: number;
+};
 export type getPrdouctByIdResponse = {
   success: boolean;
   message: string;
@@ -116,4 +124,57 @@ export type UpdateOrderRequest = {
   id: string;
   userId: string;
   status: string;
+};
+
+export type dasboardStatisticsResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    allCategories: {}[];
+    revenue: number;
+    percent: {
+      revenue: number;
+      product: number;
+      user: number;
+      order: number;
+    };
+    count: {
+      user: number;
+      product: number;
+      order: number;
+    };
+    chart: {
+      order: [];
+      revenue: [];
+    };
+    genderRatio: {
+      male: string;
+      female: string;
+    };
+    transactions: [];
+  };
+  totalPages: number;
+  currPage: number;
+};
+export type pieChartResponse = {
+  success: Boolean;
+  message: string;
+  data: {
+    orderFulFilment: {
+      processing: number;
+      shipped: number;
+      delivered: number;
+    };
+    stockRatio: number[];
+    productsByCategory: { count: number; category: string }[];
+    userTypes: string[];
+  };
+};
+export type barChartsDataResponse = {
+  success: Boolean;
+  data: {
+    order: number[];
+    users: number[];
+    products: number[];
+  };
 };

@@ -1,7 +1,5 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../redux/api/commonApi";
-import { showToast } from "../../feature";
 import { toast } from "react-hot-toast";
 import { SkeletonLoading } from "../loading";
 

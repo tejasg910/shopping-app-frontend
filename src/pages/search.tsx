@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import ProductCard from "../components/productcard";
 import {
   useGetAllCategoriesQuery,
@@ -28,7 +28,6 @@ const Search = () => {
 
   const [sort, setSort] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState(100000);
-  const [minPrice, setMinPrice] = useState<number>(1);
   const [category, setCategory] = useState<string>("all");
   const [page, setPage] = useState<number>(1);
   const { data, isError, isLoading } = useSearchProductsQuery({

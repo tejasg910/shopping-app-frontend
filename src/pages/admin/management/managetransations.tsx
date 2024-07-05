@@ -86,7 +86,7 @@ const ManageTransactions = () => {
   };
 
   const [orderStatus, setOrderStatus] = useState(data?.data.status);
-  if (isError) return toast.error("Something went wrong while fetching order");
+
   const [changeOrderStatus] = useUpdateOrderStatusMutation();
   const openModal = (type: string) => {
     setModalType(type);
@@ -145,6 +145,8 @@ const ManageTransactions = () => {
     setIsOpen(false);
     refetch();
   };
+
+  if (isError) return toast.error("Something went wrong while fetching order");
   return isLoading ? (
     <DetailSkeletonLoading />
   ) : (

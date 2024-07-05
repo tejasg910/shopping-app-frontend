@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { userReducerInitialState } from "../../types/reducer_types";
 import { useSelector } from "react-redux";
 import { useGetAllOrdersQuery } from "../../redux/api/adminApi";
@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { ListSkeletonLoading } from "../../components/loading";
 import TableComponent from "../../components/common/TableComponent";
 import { useNavigate } from "react-router-dom";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 const orderColumns = ["_id", "total", "discount", "status"];
 type TableRows = {
   _id: string;
@@ -57,10 +58,9 @@ const AdminOrders = () => {
     setPage((prev) => prev + 1);
   };
   return (
-    <div className="container">
-      <h1>My Orders</h1>
+    <div className="admin-container">
+      <AdminSidebar />
 
-      {/* {Table} */}
       {isLoading ? (
         <ListSkeletonLoading />
       ) : (

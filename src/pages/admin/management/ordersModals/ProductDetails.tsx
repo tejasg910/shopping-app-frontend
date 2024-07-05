@@ -5,7 +5,6 @@ import { userReducerInitialState } from "../../../../types/reducer_types";
 import axios from "axios";
 import { server } from "../../../../redux/store";
 import { toast } from "react-hot-toast";
-import { controllers } from "chart.js";
 type ProductDetails = {
   product: {
     name: string;

@@ -2,10 +2,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   UpdateOrderRequest,
   allProductsResponse,
+  allUsersResponse,
+  barChartsDataResponse,
   deleteProductRequest,
   messageResponse,
   myOrderResponse,
   newProductRequest,
+  pieChartResponse,
   updateProductRequest,
 } from "../../types/api_types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -35,6 +38,14 @@ export const adminApi = createApi({
       query: (id) => `/product/getAll?id=${id}`,
       providesTags: ["product"],
     }),
+
+    getAllUsers: builder.query<
+      allUsersResponse,
+      { userId: string; page: number }
+    >({
+      query: ({ userId, page }) => `/user/all?id=${userId}&page=${page}`,
+      providesTags: ["product"],
+    }),
     getAllOrders: builder.query<
       myOrderResponse,
       { userId: string; page: number }
@@ -42,6 +53,16 @@ export const adminApi = createApi({
       query: ({ userId, page }) => `/order/allOrders?page=${page}&id=${userId}`,
       providesTags: ["order"],
     }),
+    getStatiStics: builder.query<allProductsResponse, string>({
+      query: (id) => `/stats/dashboard?id=${id}`,
+    }),
+    getBarChartData: builder.query<barChartsDataResponse, string>({
+      query: (id) => `/stats/bar?id=${id}`,
+    }),
+    getPieStatistics: builder.query<pieChartResponse, string>({
+      query: (id) => `/stats/pie?id=${id}`,
+    }),
+
     newProduct: builder.mutation<messageResponse, newProductRequest>({
       query: ({ formData, id }) => ({
         url: `product/new?id=${id}`,
@@ -107,4 +128,8 @@ export const {
   useGetAllOrdersQuery,
   useUpdateOrderStatusMutation,
   useDeleteOrderMutation,
+  useGetAllUsersQuery,
+  useGetStatiSticsQuery,
+  useGetBarChartDataQuery,
+  useGetPieStatisticsQuery,
 } = adminApi;

@@ -1,47 +1,16 @@
-import { ReactElement, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
-import TableHOC from "../../components/admin/TableHOC";
 import { useGetAllProductsQuery } from "../../redux/api/adminApi";
 import { server } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { userReducerInitialState } from "../../types/reducer_types";
-import  { SkeletonLoading } from "../../components/loading";
+import { SkeletonLoading } from "../../components/loading";
 import { toast } from "react-hot-toast";
-import Nodata from "../../components/common/NOdata";
 
-interface DataType {
-  photo: ReactElement;
-  name: string;
-  price: number;
-  stock: number;
-  action: ReactElement;
-}
 
-const columns: Column<DataType>[] = [
-  {
-    Header: "Photo",
-    accessor: "photo",
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-  },
-  {
-    Header: "Price",
-    accessor: "price",
-  },
-  {
-    Header: "Stock",
-    accessor: "stock",
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-  },
-];
+
+
 
 // const img =
 //   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
@@ -73,34 +42,54 @@ const Products = () => {
 
   const { data, isError, isLoading } = useGetAllProductsQuery(user?._id!);
   if (isError) toast.error("Something went wrong while fetching products");
-  const [rows, setRows] = useState<DataType[]>([]);
-  useEffect(() => {
-    if (data)
-      setRows(
-        data.data.map((i) => ({
-          name: i.name,
-          photo: <img src={server + "/" + i.image} />,
-          price: i.price,
-          stock: i.stock,
-          action: <Link to={`/admin/product/${i._id}`}>Manage</Link>,
-        }))
-      );
-  }, [data]);
-
-  const Table = TableHOC<DataType>(
-    columns,
-    rows,
-    "dashboard-product-box",
-    "Products",
-    rows.length > 6
-  )();
 
   return (
     <div className="admin-container">
       <AdminSidebar />
 
       <main>
-        {isLoading ? <SkeletonLoading /> : rows.length > 0 ? Table : <Nodata />}
+        {isLoading ? (
+          <SkeletonLoading />
+        ) : (
+          <div className="product_table_container">
+            <div className="container">
+              <h2>
+                Responsive Tables Using LI <small>Triggers on 767px</small>
+              </h2>
+              <ul className="responsive-table">
+                <li className="table-header">
+                  <div className="col col-2">Image</div>
+                  <div className="col col-3">Name</div>
+                  <div className="col col-4">Price</div>
+                  <div className="col col-4">Stock</div>
+                </li>
+                {data?.data.map((product) => {
+                  return (
+                    <li className="table-row">
+                      <div className="col col-2" data-label="Customer Name">
+                        <img
+                          src={server + "/" + product.image}
+                          alt=""
+                          width={50}
+                          height={50}
+                        />
+                      </div>
+                      <div className="col col-3" data-label="Amount">
+                        {product?.name}
+                      </div>
+                      <div className="col col-4" data-label="Payment Status">
+                        {product?.price}
+                      </div>
+                      <div className="col col-4" data-label="Payment Status">
+                        {product?.stock}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        )}
       </main>
       <Link to="/admin/product/new" className="create-product-btn">
         <FaPlus />

@@ -1,6 +1,4 @@
-import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { CartItem } from "../types/types";
 type ProductsProps = {
   image: string;
@@ -12,7 +10,6 @@ type ProductsProps = {
   handler: (cartItem: CartItem) => void;
 };
 
-const server = "";
 const ProductCard = ({
   image,
   name,

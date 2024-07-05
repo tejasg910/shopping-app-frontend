@@ -1,107 +1,87 @@
-import { ReactElement, useState } from "react";
-import { FaTrash } from "react-icons/fa";
-import { Column } from "react-table";
+import { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
-import TableHOC from "../../components/admin/TableHOC";
+import { useGetAllUsersQuery } from "../../redux/api/adminApi";
+import { useSelector } from "react-redux";
+import { userReducerInitialState } from "../../types/reducer_types";
+import { toast } from "react-hot-toast";
+import TableComponent from "../../components/common/TableComponent";
+import { ListSkeletonLoading } from "../../components/loading";
+import { useNavigate } from "react-router-dom";
 
-interface DataType {
-  avatar: ReactElement;
+const userColumns = ["_id", "name", "email", "gender"];
+
+type TableRows = {
+  _id: string;
   name: string;
   email: string;
   gender: string;
-  role: string;
-  action: ReactElement;
-}
-
-const columns: Column<DataType>[] = [
-  {
-    Header: "Avatar",
-    accessor: "avatar",
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-  },
-  {
-    Header: "Gender",
-    accessor: "gender",
-  },
-  {
-    Header: "Email",
-    accessor: "email",
-  },
-  {
-    Header: "Role",
-    accessor: "role",
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-  },
-];
-
-const img = "https://randomuser.me/api/portraits/women/54.jpg";
-const img2 = "https://randomuser.me/api/portraits/women/50.jpg";
-
-const arr: Array<DataType> = [
-  {
-    avatar: (
-      <img
-        style={{
-          borderRadius: "50%",
-        }}
-        src={img}
-        alt="Shoes"
-      />
-    ),
-    name: "Emily Palmer",
-    email: "emily.palmer@example.com",
-    gender: "female",
-    role: "user",
-    action: (
-      <button>
-        <FaTrash />
-      </button>
-    ),
-  },
-
-  {
-    avatar: (
-      <img
-        style={{
-          borderRadius: "50%",
-        }}
-        src={img2}
-        alt="Shoes"
-      />
-    ),
-    name: "May Scoot",
-    email: "aunt.may@example.com",
-    gender: "female",
-    role: "user",
-    action: (
-      <button>
-        <FaTrash />
-      </button>
-    ),
-  },
-];
-
+};
 const Customers = () => {
-  const [rows, setRows] = useState<DataType[]>(arr);
+  const { user } = useSelector(
+    (state: { userReducer: userReducerInitialState }) => state.userReducer
+  );
 
-  const Table = TableHOC<DataType>(
-    columns,
-    rows,
-    "dashboard-product-box",
-    "Customers",
-    rows.length > 6
-  )();
+  const navigate = useNavigate();
 
+  const [rows, setRows] = useState<TableRows[]>([]);
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const { data, isError, isLoading } = useGetAllUsersQuery({
+    userId: user?._id!,
+    page: page,
+  });
+
+  console.log(data, "this is data");
+
+  useEffect(() => {
+    if (data?.data) {
+      const rows = data.data.map((user) => ({
+        _id: user._id,
+        name: user.name,
+        gender: user.gender,
+        email: user.email,
+      }));
+
+      setRows(rows);
+      setPage(data?.currPage);
+      setTotalPages(data?.totalPages);
+    }
+  }, []);
+
+  if (isError) toast.error("Something went wrong while fetching products");
+  const previousPageHandler = () => {
+    if (page <= 1) {
+      return;
+    }
+    setPage((prev) => prev - 1);
+  };
+
+  const nextPageHandler = () => {
+    if (page >= totalPages) {
+      return;
+    }
+    setPage((prev) => prev + 1);
+  };
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>{Table}</main>
+      {isLoading ? (
+        <ListSkeletonLoading />
+      ) : (
+        <TableComponent
+          action={(id) => {
+            navigate(`/admin/transaction/${id}`);
+          }}
+          columns={userColumns}
+          rows={rows}
+          page={page}
+          previousPage={previousPageHandler}
+          nextPage={nextPageHandler}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 };

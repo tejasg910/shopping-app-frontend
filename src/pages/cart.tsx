@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import CartItem from "../components/cart/CartItem";
 import { Link } from "react-router-dom";
@@ -19,9 +19,9 @@ const Cart = () => {
   const {
     cartItems,
     discount,
-    loading,
+    
     shippingCharges,
-    shippingInfo,
+  
     subTotal,
     tax,
     total,
@@ -45,7 +45,7 @@ const Cart = () => {
           dispatch(applyDiscount(res.data.data.discount));
           dispatch(calcaulatePricing());
         })
-        .catch((e) => {
+        .catch(() => {
           setIsValidCoupneCode(false);
           dispatch(applyDiscount(0));
           dispatch(calcaulatePricing());
