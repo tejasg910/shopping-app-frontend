@@ -10,6 +10,7 @@ import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { cartReducerInitialState } from "../types/reducer_types";
+import NotFound from "../components/notfound";
 
 const Home = () => {
   const { cartItems } = useSelector(
@@ -18,7 +19,6 @@ const Home = () => {
 
   const { data, isError, isLoading } = useGetLatestProductsQuery("");
   if (isError) toast.error("Error while fetching products");
-  console.log(server + "/" + data?.data[0].image);
   const dispatch = useDispatch();
   const addToCartHandler = (cartItem: CartItem) => {
     dispatch(addToCart(cartItem));
@@ -51,6 +51,8 @@ const Home = () => {
         {isLoading ? (
           <SkeletonLoading />
         ) : (
+
+        
           <Carousel centerMode={true} centerSlidePercentage={50}>
             {data?.data.map((product) => {
               return (
@@ -66,8 +68,14 @@ const Home = () => {
               );
             })}
           </Carousel>
-        )}
+        ) }
       </main>
+
+      {
+        data?.data.length === 0 && (
+          <NotFound/>
+        )
+      }
     </div>
   );
 };

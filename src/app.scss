@@ -77,6 +77,7 @@ $primary_button_gradient: linear-gradient(
 @import "styles/admin-styles/products";
 @import "styles/admin-styles/chart";
 @import "styles/admin-styles/dashboardapp";
+@import "styles/admin-styles/feature_product";
 @import "styles/admin-styles/mediaquery";
 @import "styles/home.scss";
 @import "styles/cart.scss";
@@ -87,6 +88,7 @@ $primary_button_gradient: linear-gradient(
 @import "styles/orderdetail.scss";
 @import "styles/checkout.scss";
 @import "styles/orderstatus.scss";
+@import "styles/notFound.scss";
 @import "styles/utility.scss";
 
 .container {

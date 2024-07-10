@@ -90,6 +90,13 @@ const DivOne = ({ location }: { location: Location }) => (
         Icon={RiShoppingBag3Fill}
         location={location}
       />
+
+<Li
+        url="/admin/featureproduct"
+        text="Featured Product"
+        Icon={RiShoppingBag3Fill}
+        location={location}
+      />
       <Li
         url="/admin/customer"
         text="Customer"
@@ -157,6 +164,7 @@ const DivThree = ({ location }: { location: Location }) => (
     </ul>
   </div>
 );
+
 
 interface LiProps {
   url: string;

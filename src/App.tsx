@@ -17,6 +17,7 @@ import Shipping from "./pages/shipping";
 import { getUser } from "./redux/api/userApi";
 import { userExists, userNotExists } from "./redux/reducer/userReducer";
 import { userReducerInitialState } from "./types/reducer_types";
+import FeatureProduct from "./pages/admin/featureProduct";
 
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
@@ -117,6 +118,8 @@ const App = () => {
           >
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
+            <Route path="/admin/featureproduct" element={<FeatureProduct />} />
+            
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<AdminOrders />} />
             {/* Charts */}
