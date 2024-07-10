@@ -38,6 +38,7 @@ const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const OrderDetail = lazy(() => import("./pages/orderDetail"));
 const Orderplaced = lazy(() => import("./pages/orderplaced"));
 const OrderFailed = lazy(() => import("./pages/orderFailed"));
+const Contact = lazy(() => import("./pages/contact"));
 
 const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(
@@ -84,6 +85,7 @@ const App = () => {
           <Route element={<Search />} path="/search" />
           <Route element={<ProductInfo />} path="/product/:id" />
           <Route element={<Cart />} path="/cart" />
+          <Route element={<Contact />} path="/contact" />
           {/* Not logged in route */}
           <Route
             element={
@@ -100,6 +102,7 @@ const App = () => {
           >
             <Route element={<Shipping />} path="/shipping" />
             <Route element={<Orders />} path="/orders" />
+         
             <Route element={<Checkout />} path="/pay" />
             <Route element={<OrderDetail />} path="/order/:id" />
             <Route element={<Orderplaced />} path="/order/success" />
