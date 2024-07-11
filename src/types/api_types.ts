@@ -156,6 +156,46 @@ export type dasboardStatisticsResponse = {
   totalPages: number;
   currPage: number;
 };
+
+export type dashboardDataStatsResponse = {
+  message: string;
+  data: {
+    allCategories:[{
+      [key:string]:number, 
+
+    }]
+    revenue: number;
+    percent:{
+      revenue: number,
+      product: number,
+      user: number,
+      order: number
+    }
+    count: {
+      user: number,
+      product: number,
+      order: number
+  },
+
+
+  chart: {
+  order:number[],
+    revenue: number[]
+},
+genderRatio: {
+    male: string,
+    female: string
+},
+
+transactions: {
+  _id: string, 
+  discount: number, 
+  total: number, 
+  status: string
+}[], 
+   
+  };
+}
 export type pieChartResponse = {
   success: Boolean;
   message: string;
@@ -176,5 +216,15 @@ export type barChartsDataResponse = {
     order: number[];
     users: number[];
     products: number[];
+  };
+};
+export type featureProductResponse = {
+  success: Boolean;
+  message:string
+  data: {
+  discount:number, 
+  createdAt:Date, 
+  product:Product,
+  isActive:boolean 
   };
 };

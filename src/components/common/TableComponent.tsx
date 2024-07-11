@@ -3,17 +3,21 @@ import React from "react";
 interface TableProps {
   columns: string[];
   rows: { [key: string]: string | number }[];
-  action: (id: string) => void;
+
   page?: number;
   nextPage?: () => void;
   previousPage?: () => void;
   totalPages?: number;
+  actionDetails: {
+    handler: (id: string) => void;
+    name: string;
+  };
 }
 
 const TableComponent: React.FC<TableProps> = ({
   columns,
   rows,
-  action,
+  actionDetails,
   page = 1,
   nextPage,
   previousPage,
@@ -40,10 +44,10 @@ const TableComponent: React.FC<TableProps> = ({
               <td>
                 <button
                   onClick={() => {
-                    action(row?._id as string);
+                    actionDetails.handler(row?._id as string);
                   }}
                 >
-                  View
+                  {actionDetails.name}
                 </button>
               </td>
             </tr>

@@ -4,7 +4,9 @@ import {
   allProductsResponse,
   allUsersResponse,
   barChartsDataResponse,
+  dashboardDataStatsResponse,
   deleteProductRequest,
+  featureProductResponse,
   messageResponse,
   myOrderResponse,
   newProductRequest,
@@ -53,7 +55,7 @@ export const adminApi = createApi({
       query: ({ userId, page }) => `/order/allOrders?page=${page}&id=${userId}`,
       providesTags: ["order"],
     }),
-    getStatiStics: builder.query<allProductsResponse, string>({
+    getStatiStics: builder.query<dashboardDataStatsResponse, string>({
       query: (id) => `/stats/dashboard?id=${id}`,
     }),
     getBarChartData: builder.query<barChartsDataResponse, string>({
@@ -82,6 +84,10 @@ export const adminApi = createApi({
         body: formData,
       }),
       invalidatesTags: ["product"],
+    }),
+    getFeaturedProduct: builder.query<featureProductResponse, string>({
+      query: ( id) => `product/getFeatureProduct/?id=${id}`
+    
     }),
 
     updateOrderStatus: builder.mutation<messageResponse, UpdateOrderRequest>({
@@ -132,4 +138,5 @@ export const {
   useGetStatiSticsQuery,
   useGetBarChartDataQuery,
   useGetPieStatisticsQuery,
+  useGetFeaturedProductQuery
 } = adminApi;

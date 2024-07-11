@@ -1,10 +1,12 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./app.scss";
+import "react-responsive-modal/styles.css";
+
 import Loader from "./components/admin/Loader";
 import Header from "./components/header";
 import { HomePageLoader } from "./components/loading";
@@ -18,6 +20,7 @@ import { getUser } from "./redux/api/userApi";
 import { userExists, userNotExists } from "./redux/reducer/userReducer";
 import { userReducerInitialState } from "./types/reducer_types";
 import FeatureProduct from "./pages/admin/featureProduct";
+import EmailUpdate from "./components/AddEmail";
 
 const Home = lazy(() => import("./pages/home"));
 const Orders = lazy(() => import("./pages/orders"));
@@ -49,6 +52,7 @@ const ProductManagement = lazy(
 // );
 
 const App = () => {
+  const [openUpdateEmailModal, setOpenUpdateEmailModal] = useState(false);
   const { user, loading } = useSelector(
     (state: { userReducer: userReducerInitialState }) => state.userReducer
   );
@@ -63,6 +67,11 @@ const App = () => {
         if (response && "data" in response) {
           const user = response.data;
           dispatch(userExists(user));
+
+          if (!user.email) {
+            console.log("camere here");
+            setOpenUpdateEmailModal(true);
+          }
         } else {
           dispatch(userNotExists());
           toast.error("Something went wrong");
@@ -78,6 +87,10 @@ const App = () => {
     <Router>
       {/* Header */}
 
+      <EmailUpdate
+        handleOpenModal={openUpdateEmailModal}
+        onCloseModal={() => setOpenUpdateEmailModal(false)}
+      />
       <Header user={user} />
       <Suspense fallback={<Loader />}>
         <Routes>
@@ -102,7 +115,7 @@ const App = () => {
           >
             <Route element={<Shipping />} path="/shipping" />
             <Route element={<Orders />} path="/orders" />
-         
+
             <Route element={<Checkout />} path="/pay" />
             <Route element={<OrderDetail />} path="/order/:id" />
             <Route element={<Orderplaced />} path="/order/success" />
@@ -122,7 +135,7 @@ const App = () => {
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/featureproduct" element={<FeatureProduct />} />
-            
+
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<AdminOrders />} />
             {/* Charts */}

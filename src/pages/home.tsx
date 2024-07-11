@@ -9,12 +9,24 @@ import FeatureProdcutCard from "../components/products/FeatureProdcutCard";
 import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
-import { cartReducerInitialState } from "../types/reducer_types";
+import {
+  cartReducerInitialState,
+  userReducerInitialState,
+} from "../types/reducer_types";
 import NotFound from "../components/notfound";
+import OfferCard from "../components/products/OfferCard";
+import { useGetFeaturedProductQuery } from "../redux/api/adminApi";
 
 const Home = () => {
   const { cartItems } = useSelector(
     (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  );
+  const { user } = useSelector(
+    (state: { userReducer: userReducerInitialState }) => state.userReducer
+  );
+
+  const { data: featureProductData, refetch } = useGetFeaturedProductQuery(
+    user?._id!
   );
 
   const { data, isError, isLoading } = useGetLatestProductsQuery("");
@@ -38,7 +50,18 @@ const Home = () => {
   };
   return (
     <div className="home">
-      <FeatureProdcutCard />
+      {featureProductData?.data?.discount && (
+        <OfferCard discount={featureProductData?.data.discount} />
+      )}
+      <div className="gradient_bar"></div>
+
+      <FeatureProdcutCard
+        product={
+          featureProductData?.data?.product
+            ? featureProductData?.data?.product
+            : null
+        }
+      />
 
       <h1>
         Latest Products{" "}
@@ -51,8 +74,6 @@ const Home = () => {
         {isLoading ? (
           <SkeletonLoading />
         ) : (
-
-        
           <Carousel centerMode={true} centerSlidePercentage={50}>
             {data?.data.map((product) => {
               return (
@@ -68,14 +89,10 @@ const Home = () => {
               );
             })}
           </Carousel>
-        ) }
+        )}
       </main>
 
-      {
-        data?.data.length === 0 && (
-          <NotFound/>
-        )
-      }
+      {data?.data.length === 0 && <NotFound />}
     </div>
   );
 };

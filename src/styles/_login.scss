@@ -7,7 +7,7 @@
     max-width: 400px;
     padding: 2rem;
     @include baseShadow;
-    @include flex(column, center, stretch);
+    @include flex(column, start, stretch);
     > div {
       width: 100%;
       @include flex(column, flex-start, stretch, 0.2rem);
@@ -20,7 +20,7 @@
       > p {
         text-align: center;
       }
-      > button {
+      > .google_login_button {
         width: 70%;
         margin: auto;
         height: 3rem;
@@ -30,6 +30,42 @@
         font-size: 1.04rem;
         > svg {
           background-color: white;
+          width: 30%;
+          height: 100%;
+        }
+        > span {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      > .github_login_button {
+        width: 70%;
+        margin: 1rem auto;
+        height: 3rem;
+        @include btn(unset, rgb(51, 175, 76), white);
+        @include flex;
+        border: 1px solid rgba(62, 125, 242);
+        font-size: 1.04rem;
+        > svg {
+          background-color: black;
+          width: 30%;
+          height: 100%;
+        }
+        > span {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      > .twitter_login_button{
+        width: 70%;
+        margin: auto;
+        height: 3rem;
+        @include btn(unset, rgb(49, 50, 53), white);
+        @include flex;
+        border: 1px solid rgba(62, 125, 242);
+        font-size: 1.04rem;
+        > svg {
+          // background-color: white;
           width: 30%;
           height: 100%;
         }

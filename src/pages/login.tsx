@@ -1,5 +1,9 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import  { useState } from "react";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+  TwitterAuthProvider,
+} from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../firebase";
@@ -9,53 +13,135 @@ import { messageResponse } from "../types/api_types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userExists, userNotExists } from "../redux/reducer/userReducer";
+import { FaGithub } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [gender, setGender] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
-  const loginHandler = async () => {
+  const loginHandler = async (type: string) => {
     try {
-      const provider = new GoogleAuthProvider();
-      const { user } = await signInWithPopup(auth, provider);
-      const response = await login({
-        _id: user.uid,
-        dob: date,
-        email: user.email!,
-        gender,
-        image: user.photoURL!,
-        name: user.displayName!,
+      if (type === "google") {
+        const provider = new GoogleAuthProvider();
+        const { user } = await signInWithPopup(auth, provider);
+        const response = await login({
+          _id: user.uid,
 
-        role: "user",
-      });
+          email: user.email!,
 
-      if ("data" in response) {
-        toast.success(response.data.message);
-        console.log("api hitt");
-        const getUserResponse = await getUser(user.uid);
+          image: user.photoURL!,
+          name: user.displayName!,
 
-        // Check if user exists in the database
-        if (getUserResponse && "data" in getUserResponse) {
-          console.log(getUserResponse);
+          role: "user",
+        });
 
-          const userData = getUserResponse.data;
+        if ("data" in response) {
+          toast.success(response.data.message);
+          console.log("api hitt");
+          const getUserResponse = await getUser(user.uid);
 
-          dispatch(userExists(userData));
+          // Check if user exists in the database
+          if (getUserResponse && "data" in getUserResponse) {
+            console.log(getUserResponse);
+
+            const userData = getUserResponse.data;
+
+            dispatch(userExists(userData));
+          } else {
+            dispatch(userNotExists());
+            toast.error("Something went wrong");
+          }
+
+          navigate("/");
         } else {
-          dispatch(userNotExists());
-          toast.error("Something went wrong");
+          const error = response.error as FetchBaseQueryError;
+          const message = (error.data as messageResponse).message;
+          toast.error(message);
         }
+      } else if (type == "github") {
+        const provider = new GithubAuthProvider();
+        const { user } = await signInWithPopup(auth, provider);
 
-        navigate("/");
-      } else {
-        const error = response.error as FetchBaseQueryError;
-        const message = (error.data as messageResponse).message;
-        toast.error(message);
+        console.log(user, "this is user");
+        const response = await login({
+          _id: user.uid,
+
+          email: user.email!,
+
+          image: user.photoURL!,
+          name: user.displayName!,
+
+          role: "user",
+        });
+
+        if ("data" in response) {
+          toast.success(response.data.message);
+          console.log("api hitt");
+          const getUserResponse = await getUser(user.uid);
+
+          // Check if user exists in the database
+          if (getUserResponse && "data" in getUserResponse) {
+            console.log(getUserResponse);
+
+            const userData = getUserResponse.data;
+
+            dispatch(userExists(userData));
+          } else {
+            dispatch(userNotExists());
+            toast.error("Something went wrong");
+          }
+
+          // navigate("/");
+        } else {
+          const error = response.error as FetchBaseQueryError;
+          const message = (error.data as messageResponse).message;
+          toast.error(message);
+        }
+      } else if (type == "twitter") {
+        const provider = new TwitterAuthProvider();
+        const { user } = await signInWithPopup(auth, provider);
+
+        console.log(user, "this is user");
+        const response = await login({
+          _id: user.uid,
+
+          email: user.email!,
+
+          image: user.photoURL!,
+          name: user.displayName!,
+
+          role: "user",
+        });
+
+        if ("data" in response) {
+          toast.success(response.data.message);
+          console.log("api hitt");
+          const getUserResponse = await getUser(user.uid);
+
+          // Check if user exists in the database
+          if (getUserResponse && "data" in getUserResponse) {
+            console.log(getUserResponse);
+
+            const userData = getUserResponse.data;
+
+            dispatch(userExists(userData));
+          } else {
+            dispatch(userNotExists());
+            toast.error("Something went wrong");
+          }
+
+          // navigate("/");
+        } else {
+          const error = response.error as FetchBaseQueryError;
+          const message = (error.data as messageResponse).message;
+          toast.error(message);
+        }
       }
-    } catch (error) {
-      toast.error("Sign in failed");
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.message || "Sign in failed");
     }
   };
   return (
@@ -63,7 +149,7 @@ const Login = () => {
       <main>
         <h1 className="heading">Login</h1>
 
-        <div>
+        {/* <div>
           <label htmlFor="">Gender</label>
 
           <select
@@ -86,12 +172,36 @@ const Login = () => {
             onChange={(e) => setDate(e.target.value)}
             name="date"
           />
-        </div>
+        </div> */}
         <div>
-          <p>New user?</p>
-          <button onClick={loginHandler}>
+          {/* <p>New user?</p> */}
+          <button
+            className="google_login_button"
+            onClick={() => {
+              loginHandler("google");
+            }}
+          >
             <FcGoogle />
             <span>Sign in with Google</span>
+          </button>
+          <button
+            className="github_login_button"
+            onClick={() => {
+              loginHandler("github");
+            }}
+          >
+            <FaGithub />
+            <span>Sign in with Github</span>
+          </button>
+
+          <button
+            className="twitter_login_button"
+            onClick={() => {
+              loginHandler("twitter");
+            }}
+          >
+            <FaSquareXTwitter />
+            <span>Sign in with X</span>
           </button>
         </div>
       </main>

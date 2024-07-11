@@ -65,8 +65,11 @@ const AdminOrders = () => {
         <ListSkeletonLoading />
       ) : (
         <TableComponent
-          action={(id) => {
-            navigate(`/admin/transaction/${id}`);
+          actionDetails={{
+            handler: (id) => {
+              navigate(`/admin/transaction/${id}`);
+            },
+            name: "view",
           }}
           columns={orderColumns}
           rows={rows}

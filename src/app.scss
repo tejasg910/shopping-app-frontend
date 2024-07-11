@@ -119,14 +119,15 @@ $primary_button_gradient: linear-gradient(
       color: $color3;
     }
   }
-  button {
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    background-color: transparent;
-    &:hvoer {
-      color: $color3;
-    }
+
+
+  .react-responsive-modal-modal{
+  background-color: red;
+>div{
+  @include flex(column, flex-start, center, 0.25rem);
+}
+    
+    
   }
   dialog {
     border: 1px solid #ccc;
@@ -136,12 +137,20 @@ $primary_button_gradient: linear-gradient(
     position: absolute;
     left: calc(100% - 100px);
     top: 8%;
-    > div {
-      @include flex(column, flex-start, center, 0.25rem);
-    }
+   
   }
 }
+.header_modal_button {
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: transparent;
+  text-align: start;
+  &:hvoer {
+    color: $color3;
+  };
 
+}
 .heading {
   @include heading;
   margin: 1rem 0;

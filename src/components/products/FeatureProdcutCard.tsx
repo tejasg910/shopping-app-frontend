@@ -1,6 +1,5 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  
   motion,
   useAnimation,
   useInView,
@@ -8,8 +7,10 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { Product } from "../../types/types";
+import { server } from "../../redux/store";
 
-const FeatureProdcutCard = () => {
+const FeatureProdcutCard = ({ product }: { product: Product | null }) => {
   const ref = useRef(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
   const isInview = useInView(ref);
@@ -77,37 +78,43 @@ const FeatureProdcutCard = () => {
           animate={{ opacity: 1, y: 0 }} // Animation properties to animate to
           transition={{ duration: 0.5 }} // Duration of the animation
         >
-          <section className="card">
-            <div className="product-image">
-              <img
-                src="https://i.ibb.co/cNWqxGx/red.png"
-                alt="OFF-white Red Edition"
-                draggable="false"
-              />
-            </div>
-            <div className="product-info">
-              <h2>Nike X OFF-white</h2>
-              <p>The 10: Air Jordan 1 off-white - Chicago</p>
-              <div className="price">$999</div>
-            </div>
-            <div className="btn">
-              <button className="buy-btn">Buy Now</button>
-              <button className="fav">
-                <svg
-                  className="svg"
-                  id="i-star"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 32 32"
-                  stroke="#000"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                >
-                  <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
-                </svg>
-              </button>
-            </div>
-          </section>
+          {product ? (
+            <section className="card">
+              <div className="product-image">
+                <img
+                  src={server + "/" + product.image}
+                  alt="OFF-white Red Edition"
+                  draggable="false"
+                />
+              </div>
+              <div className="product-info">
+                <h2>{product.name}</h2>
+                <p>{product.category}</p>
+                <div className="price">₹{product.price}</div>
+              </div>
+              <div className="btn">
+                <button className="buy-btn">Add to cart</button>
+                <button className="fav">
+                  <svg
+                    className="svg"
+                    id="i-star"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32"
+                    stroke="#000"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  >
+                    <path d="M16 2 L20 12 30 12 22 19 25 30 16 23 7 30 10 19 2 12 12 12 Z" />
+                  </svg>
+                </button>
+              </div>
+            </section>
+          ) : (
+            <section className="card">
+              <img src="/assets/images/store.png" />
+            </section>
+          )}
         </motion.div>
 
         <motion.div

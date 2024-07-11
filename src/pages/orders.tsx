@@ -1,5 +1,5 @@
-import {  useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMyOrdersQuery } from "../redux/api/userApi";
 import { useSelector } from "react-redux";
 import { userReducerInitialState } from "../types/reducer_types";
@@ -15,7 +15,6 @@ type TableRows = {
 };
 
 const orderColumns = ["_id", "total", "discount", "status"];
-
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ const Orders = () => {
       }));
 
       setRows(rows);
-  
     }
   }, [data]);
 
@@ -51,8 +49,11 @@ const Orders = () => {
         <ListSkeletonLoading />
       ) : (
         <TableComponent
-          action={(id) => {
-            navigate(`/order/${id}`);
+          actionDetails={{
+            handler: (id) => {
+              navigate(`/order/${id}`);
+            },
+            name: "view",
           }}
           columns={orderColumns}
           rows={rows}

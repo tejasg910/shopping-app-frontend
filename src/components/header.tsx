@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   FaSearch,
   FaShoppingBag,
@@ -12,6 +12,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
 import OfferCard from "./products/OfferCard";
+import Modal from "react-responsive-modal";
 interface PropsTypes {
   user: User | null;
 }
@@ -29,7 +30,7 @@ const Header = ({ user }: PropsTypes) => {
   };
   return (
     <div>
-      <div className="gradient_bar"></div>
+    
       <nav className="header">
         <Link onClick={() => setIsOpen(false)} to={"/"}>
           Home
@@ -46,17 +47,28 @@ const Header = ({ user }: PropsTypes) => {
             <button onClick={() => setIsOpen((prev) => !prev)}>
               <FaUser />
             </button>
-            <dialog open={isOpen}>
-              <div>
+            <Modal
+              classNames={{ root: "header_modal" }}
+              styles={{
+                modal: {
+                  position: "absolute",
+                  right: 0,
+                  width: "9rem",
+                },
+              }}
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 {user?.role === "admin" && (
                   <Link to={"/admin/dashboard"}>Admin</Link>
                 )}
                 <Link to={"/orders"}>Orders</Link>
-                <button onClick={logoutHandler}>
+                <button className="header_modal_button" onClick={logoutHandler}>
                   <FaSignOutAlt />
                 </button>
               </div>
-            </dialog>
+            </Modal>
           </>
         ) : (
           <Link to={"/login"}>
@@ -64,7 +76,7 @@ const Header = ({ user }: PropsTypes) => {
           </Link>
         )}
       </nav>
-      <OfferCard />
+     
     </div>
   );
 };

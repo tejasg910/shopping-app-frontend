@@ -50,9 +50,7 @@ const Products = () => {
           <div className="main_product_table_container">
             <div className="product_table_container">
               <div className="container">
-                <h2>
-                  Responsive Tables Using LI <small>Triggers on 767px</small>
-                </h2>
+                <h2>Products</h2>
                 <ul className="responsive-table">
                   <li className="table-header">
                     <div className="col col-2">Image</div>
