@@ -1,14 +1,52 @@
+import axios from "axios";
+import { ChangeEvent, FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { IoLogoLinkedin } from "react-icons/io";
+import { server } from "../redux/store";
 
 const Contact = () => {
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+    query: "",
+    mobile: "",
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { value, name } = e.target;
+    setDetails((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const res = await axios.post(`${server}/api/v1/user/other/contact`, {
+        email: details.email,
+        name: details.name,
+        query: details.query,
+        mobile: details.mobile,
+      });
+      console.log(res, "this is res");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <div className="contact_us_container">
       <section id="contact">
         <h1 className="section-header">Contact</h1>
 
         <div className="contact-wrapper">
-          <form id="contact-form" className="form-horizontal" role="form">
+          <form
+            id="contact-form"
+            className="form-horizontal"
+            role="form"
+            onSubmit={submitHandler}
+          >
             <div className="form-group">
               <div className="col-sm-12">
                 <input
@@ -17,12 +55,26 @@ const Contact = () => {
                   id="name"
                   placeholder="NAME"
                   name="name"
-                  value=""
+                  value={details.name}
+                  onChange={handleChange}
                   required
                 />
               </div>
             </div>
-
+            <div className="form-group">
+              <div className="col-sm-12">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="mobile"
+                  placeholder="MOBILE"
+                  name="mobile"
+                  value={details.mobile}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
             <div className="form-group">
               <div className="col-sm-12">
                 <input
@@ -31,7 +83,8 @@ const Contact = () => {
                   id="email"
                   placeholder="EMAIL"
                   name="email"
-                  value=""
+                  value={details.email}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -41,7 +94,9 @@ const Contact = () => {
               className="form-control"
               rows={10}
               placeholder="MESSAGE"
-              name="message"
+              name="query"
+              value={details.query}
+              onChange={handleChange}
               required
             ></textarea>
 
