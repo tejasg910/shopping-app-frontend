@@ -6,7 +6,6 @@ import { userReducerInitialState } from "../../types/reducer_types";
 import { toast } from "react-hot-toast";
 import TableComponent from "../../components/common/TableComponent";
 import { ListSkeletonLoading } from "../../components/loading";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const userColumns = ["_id", "name", "email", "role"];

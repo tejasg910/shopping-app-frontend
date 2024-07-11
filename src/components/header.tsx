@@ -11,7 +11,6 @@ import { User } from "../types/types";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-hot-toast";
-import OfferCard from "./products/OfferCard";
 import Modal from "react-responsive-modal";
 interface PropsTypes {
   user: User | null;

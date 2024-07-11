@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import OfferCard from "../../components/products/OfferCard";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { useEffect, useState } from "react";
 import axios from "axios";
