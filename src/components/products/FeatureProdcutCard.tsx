@@ -7,10 +7,16 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { Product } from "../../types/types";
+import { CartItem, Product } from "../../types/types";
 import { server } from "../../redux/store";
 
-const FeatureProdcutCard = ({ product }: { product: Product | null }) => {
+const FeatureProdcutCard = ({
+  product,
+  addToCartHandler,
+}: {
+  product: Product | null;
+  addToCartHandler: (cartItem: CartItem) => void;
+}) => {
   const ref = useRef(null);
   const { scrollY, scrollYProgress } = useScroll({ container: ref });
   const isInview = useInView(ref);
@@ -93,7 +99,21 @@ const FeatureProdcutCard = ({ product }: { product: Product | null }) => {
                 <div className="price">₹{product.price}</div>
               </div>
               <div className="btn">
-                <button className="buy-btn">Add to cart</button>
+                <button
+                  onClick={() => {
+                    addToCartHandler({
+                      image: product?.image,
+                      name: product.name,
+                      price: product.price,
+                      productId: product._id,
+                      quantity: 1,
+                      stock: product.stock,
+                    });
+                  }}
+                  className="buy-btn"
+                >
+                  Add to cart
+                </button>
                 <button className="fav">
                   <svg
                     className="svg"

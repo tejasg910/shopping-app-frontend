@@ -25,9 +25,7 @@ const Home = () => {
     (state: { userReducer: userReducerInitialState }) => state.userReducer
   );
 
-  const { data: featureProductData, refetch } = useGetFeaturedProductQuery(
-    user?._id!
-  );
+  const { data: featureProductData } = useGetFeaturedProductQuery(user?._id!);
 
   const { data, isError, isLoading } = useGetLatestProductsQuery("");
   if (isError) toast.error("Error while fetching products");
@@ -61,6 +59,8 @@ const Home = () => {
             ? featureProductData?.data?.product
             : null
         }
+        addToCartHandler={addToCartHandler}
+      
       />
 
       <h1>
