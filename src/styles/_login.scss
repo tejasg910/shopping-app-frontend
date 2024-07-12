@@ -57,7 +57,7 @@
         }
       }
       > .twitter_login_button{
-        width: 70%;
+        width: 100%;
         margin: auto;
         height: 3rem;
         @include btn(unset, rgb(49, 50, 53), white);
@@ -72,6 +72,92 @@
         > span {
           width: 100%;
           text-align: center;
+        }
+      }
+    }
+  }
+
+
+// LOGIN WITH EMAIL
+  .login_container_email {
+    background-color: white;
+   
+    border-radius: 8px;
+    
+    text-align: center;
+
+.login_side{
+  span{
+    color: $color3;
+  }
+}
+    .email-input , .password-input{
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .login-button {
+      // width: 70%;
+      // margin:auto;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+  .social-login-buttons {
+    margin-top: 1rem;
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: white;
+
+      .icon {
+        margin-right: 0.5rem;
+      }
+
+      &.google-button {
+        background-color: #db4437;
+
+        &:hover {
+          background-color: #c23321;
+        }
+      }
+
+      &.github-button {
+        background-color: #333;
+
+        &:hover {
+          background-color: #24292e;
+        }
+      }
+
+      &.x-button {
+        background-color: #000;
+
+        &:hover {
+          background-color: #333;
         }
       }
     }
