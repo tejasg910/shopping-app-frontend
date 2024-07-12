@@ -1,13 +1,12 @@
 import {
   createUserWithEmailAndPassword,
-  deleteUser,
+  
   GithubAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
   TwitterAuthProvider,
 } from "firebase/auth";
 import { toast } from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
 import { auth } from "../firebase";
 import { getUser, useLoginMutation } from "../redux/api/userApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -15,10 +14,9 @@ import { messageResponse } from "../types/api_types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userExists, userNotExists } from "../redux/reducer/userReducer";
-import { FaGithub, FaGoogle, FaTimes } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { useState } from "react";
-import Modal from "react-responsive-modal";
 import SignInModal from "../components/auth/SignInModal";
 
 const Login = () => {
