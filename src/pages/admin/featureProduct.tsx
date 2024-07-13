@@ -92,7 +92,7 @@ const FeatureProduct = () => {
                 <section className="card">
                   <div className="product-image">
                     <img
-                      src={server + "/" + data.data.product.image}
+                      src={ data.data.product.image}
                       alt="OFF-white Red Edition"
                       draggable="false"
                     />

@@ -246,7 +246,7 @@ const ManageTransactions = () => {
                   <tr>
                     <td>
                       <img
-                        src={server + "/" + product.product.image}
+                        src={ product.product.image}
                         alt="no image"
                       />
                     </td>

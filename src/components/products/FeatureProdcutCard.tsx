@@ -88,7 +88,7 @@ const FeatureProdcutCard = ({
             <section className="card">
               <div className="product-image">
                 <img
-                  src={server + "/" + product.image}
+                  src={product.image}
                   alt="OFF-white Red Edition"
                   draggable="false"
                 />

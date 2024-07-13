@@ -64,7 +64,7 @@ const Products = () => {
                       <li className="table-row">
                         <div className="col col-2" data-label="Customer Name">
                           <img
-                            src={server + "/" + product.image}
+                            src={ product.image}
                             alt=""
                             width={50}
                             height={50}

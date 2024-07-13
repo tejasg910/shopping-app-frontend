@@ -237,7 +237,7 @@ const OrderDetailComponent: React.FC<{ data: Order }> = ({ data }) => {
                   <tr>
                     <td>
                       <img
-                        src={server + "/" + product.product.image}
+                        src={ product.product.image}
                         alt="no image"
                       />
                     </td>

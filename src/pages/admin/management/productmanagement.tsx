@@ -66,12 +66,12 @@ const Productmanagement = () => {
     setNameUpdate(data?.data.name!);
     setPriceUpdate(data?.data.price!);
     setStockUpdate(data?.data.stock!);
-    setPhotoUpdate(server + "/" + data?.data.image!);
+    setPhotoUpdate( data?.data.image!);
     setCategoryUpdate(data?.data?.category!);
     setName(data?.data.name!);
     setPrice(data?.data.price!);
     setStock(data?.data.stock!);
-    setPhoto(server + "/" + data?.data.image!);
+    setPhoto( data?.data.image!);
     setCategory(data?.data?.category!);
   }, [data]);
 

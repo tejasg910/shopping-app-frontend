@@ -121,7 +121,7 @@ const Search = () => {
                 productId={product._id}
                 price={product.price}
                 stock={product.stock}
-                image={server + "/" + product.image}
+                image={ product.image}
                 handler={addToCartHandler}
                 name={product.name}
               />
