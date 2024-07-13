@@ -6,7 +6,6 @@ import { userReducerInitialState } from "../../../types/reducer_types";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../feature";
-import { controllers } from "chart.js";
 
 const NewProduct = () => {
   const navigate = useNavigate();
