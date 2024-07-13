@@ -11,7 +11,6 @@ import { userReducerInitialState } from "../../../types/reducer_types";
 import { toast } from "react-hot-toast";
 import { DetailSkeletonLoading } from "../../../components/loading";
 import { showToast } from "../../../feature";
-import { server } from "../../../redux/store";
 import DeleteOrderProduct from "./ordersModals/DeleteOrderProduct";
 import BillingTotalDetails from "./ordersModals/BillingTotalDetails";
 import { Product } from "../../../types/types";

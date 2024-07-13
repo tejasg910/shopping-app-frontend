@@ -1,10 +1,10 @@
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { CartItem } from "../../types/types";
+import { CartItem  as CartItemType} from "../../types/types";
 type CartItemProps = {
-  cart: CartItem;
-  increamentHandler: (cartItem: CartItem) => void;
-  decreamentHandler: (cartItem: CartItem) => void;
+  cart: CartItemType;
+  increamentHandler: (cartItem: CartItemType) => void;
+  decreamentHandler: (cartItem: CartItemType) => void;
   removeCartHandler: (productId: string) => void;
 };
 const CartItem = ({

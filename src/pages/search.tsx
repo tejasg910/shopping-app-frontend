@@ -6,7 +6,6 @@ import {
 } from "../redux/api/commonApi";
 import { toast } from "react-hot-toast";
 
-import { server } from "../redux/store";
 import { SkeletonLoading } from "../components/loading";
 import { CartItem } from "../types/types";
 import { useDispatch, useSelector } from "react-redux";

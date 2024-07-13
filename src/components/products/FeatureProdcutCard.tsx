@@ -8,7 +8,6 @@ import {
   useTransform,
 } from "framer-motion";
 import { CartItem, Product } from "../../types/types";
-import { server } from "../../redux/store";
 
 const FeatureProdcutCard = ({
   product,

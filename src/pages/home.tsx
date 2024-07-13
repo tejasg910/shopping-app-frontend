@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/productcard";
 import { useGetLatestProductsQuery } from "../redux/api/commonApi";
-import { server } from "../redux/store";
 import { toast } from "react-hot-toast";
 import { SkeletonLoading } from "../components/loading";
 import { Carousel } from "react-responsive-carousel";

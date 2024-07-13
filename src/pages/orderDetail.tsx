@@ -5,7 +5,6 @@ import { userReducerInitialState } from "../types/reducer_types";
 import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { Order } from "../types/api_types";
-import { server } from "../redux/store";
 import { DetailSkeletonLoading } from "../components/loading";
 import { useOrderDetailQuery } from "../redux/api/commonApi";
 

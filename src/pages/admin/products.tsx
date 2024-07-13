@@ -2,7 +2,6 @@ import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { useGetAllProductsQuery } from "../../redux/api/adminApi";
-import { server } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { userReducerInitialState } from "../../types/reducer_types";
 import { SkeletonLoading } from "../../components/loading";

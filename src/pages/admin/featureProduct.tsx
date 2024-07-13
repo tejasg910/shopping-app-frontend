@@ -6,7 +6,6 @@ import { userReducerInitialState } from "../../types/reducer_types";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useGetFeaturedProductQuery } from "../../redux/api/adminApi";
-import { server } from "../../redux/store";
 const FeatureProduct = () => {
   const { user } = useSelector(
     (state: { userReducer: userReducerInitialState }) => state.userReducer

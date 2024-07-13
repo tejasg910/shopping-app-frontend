@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../../redux/api/commonApi";
 import { toast } from "react-hot-toast";
 import Loading from "../../../components/loading";
-import { server } from "../../../redux/store";
 import {
   useDeleteProductMutation,
   useUdpateProductMutation,

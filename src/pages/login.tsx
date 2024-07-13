@@ -43,7 +43,7 @@ const Login = () => {
         });
 
         if ("data" in response) {
-          toast.success(response.data.message);
+          toast.success(response?.data?.message!);
           console.log("api hitt");
           const getUserResponse = await getUser(user.uid);
 
@@ -82,7 +82,7 @@ const Login = () => {
         });
 
         if ("data" in response) {
-          toast.success(response.data.message);
+          toast.success(response?.data?.message!);
           console.log("api hitt");
           const getUserResponse = await getUser(user.uid);
 
@@ -121,7 +121,7 @@ const Login = () => {
         });
 
         if ("data" in response) {
-          toast.success(response.data.message);
+          toast.success(response?.data?.message!);
           console.log("api hitt");
           const getUserResponse = await getUser(user.uid);
 
@@ -169,7 +169,7 @@ const Login = () => {
         });
 
         if ("data" in response) {
-          toast.success(response.data.message);
+          toast.success(response?.data?.message!);
           console.log("api hitt");
           const getUserResponse = await getUser(user.uid);
 
